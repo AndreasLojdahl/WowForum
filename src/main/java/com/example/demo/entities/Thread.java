@@ -19,21 +19,22 @@ public class Thread {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long thread_id;
-    private long timestamp = new Date().getTime();
+    private long timestamp;
     private String title;
     private long forum_id;
+
+    public Thread(String title, long forum_id){
+        this.title = title;
+        this.forum_id = forum_id;
+        this.timestamp = new Date().getTime();
+    }
 
     @OneToMany
     @JoinColumn(name = "thread_id")
     private Set<Message> messages;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User threadOwner;
-
-
-
-
-
 
 }
