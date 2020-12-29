@@ -15,7 +15,7 @@
           v-model="thread.title"
         />
       </div>
-       <div class="form-group">
+      <div class="form-group">
         <label for="message">Meddelande</label>
         <input
           type="text"
@@ -25,9 +25,9 @@
           v-model="thread.initialMessage"
         />
       </div>
-    <button type="submit" class="btn btn-secondary">
-      Skapa ny tråd
-    </button>
+      <button type="submit" class="btn btn-secondary">
+        Skapa ny tråd
+      </button>
     </form>
 
     <ForumListItem
@@ -53,32 +53,35 @@ export default {
     return {
       thread: {
         title: null,
-        initialMessage: null
-      }
+        initialMessage: null,
+      },
     };
   },
   computed: {
     paramName() {
       return this.$route.params.forum;
     },
-    forum() { 
+    forum() {
       return this.$store.state.forum;
     },
   },
   methods: {
-    async createThread(){
+    async createThread() {
       let threadToCreate = {
         title: this.thread.title,
-        initialMessage: this.thread.initialMessage
-      }
-      let newThread = await fetch(`/api/v1/forums/${this.forum.forum_id}/threads`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(threadToCreate),
-      })
+        initialMessage: this.thread.initialMessage,
+      };
+      let newThread = await fetch(
+        `/api/v1/forums/${this.forum.forum_id}/threads`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(threadToCreate),
+        }
+      );
       newThread = await newThread.json();
-      console.log(newThread)
-    }
+      console.log(newThread);
+    },
   },
   watch: {
     paramName: function() {

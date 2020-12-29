@@ -4,20 +4,20 @@
       <h1>{{ thread.title }}</h1>
     </div>
 
-     <form @submit.prevent="createMessage" class="mb-4">
-       <div class="form-group">
+    <form @submit.prevent="createMessage" class="mb-4">
+      <div class="form-group">
         <label for="message">Meddelande</label>
         <input
           type="text"
           class="form-control"
           id="message"
           required
-          v-model="thread.initialMessage"
+          v-model="message.messageContent"
         />
       </div>
-    <button type="submit" class="btn btn-secondary">
-      Posta meddelande
-    </button>
+      <button type="submit" class="btn btn-secondary">
+        Skicka meddelandet
+      </button>
     </form>
 
     <Message
@@ -42,15 +42,27 @@ export default {
   data() {
     return {
       message: {
-        title: null,
-        initialMessage: null
-      }
+        messageContent: null,
+      },
     };
   },
   methods: {
-      createMessage(){
+    async createMessage() {
+      let messageToCreate = {
+        messageContent: this.message.messageContent,
+      };
 
-      }
+      let newMessage = await fetch(
+        `/api/v1/messages/${this.thread.thread_id}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(messageToCreate),
+        }
+      );
+      newMessage = await newMessage.json();
+      console.log(newMessage);
+    },
   },
   created() {
     // let id = this.$route.params.id;

@@ -10,20 +10,19 @@
 export default {
   props: {
     threadObj: Object,
-    forum: String
+    forum: String,
   },
   computed: {
-    getDate(){
-        return new Date(this.threadObj.timestamp).toLocaleString("sv-SE")
-    }
+    getDate() {
+      return new Date(this.threadObj.timestamp).toLocaleString("sv-SE");
+    },
   },
-  methods : {
-      goTo(){
-          this.$store.commit("setThread", this.threadObj)
-          this.$router.push({ path: `${this.forum}/${this.threadObj.thread_id}` });
-      }
-  }
+  methods: {
+    goTo() {
+      this.$store.commit("setThread", this.threadObj);
+      this.$router.push({ path: `${this.forum}/${this.threadObj.thread_id}` });
+    },
+  },
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>

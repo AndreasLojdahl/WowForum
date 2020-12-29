@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col mt-5">
     <span>{{ message.messageOwner }}</span>
     <h5>{{ message.messageContent }}</h5>
     <span>{{ getDate }}</span>
