@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <h3 class="mt-5 text-center">Skapa Konto</h3>
-    <form @submit.prevent="createThread" class="mt-5">
+    <form @submit.prevent="createThread" class="mt-5 col-6 mx-auto">
       <div class="form-group">
         <label for="title">Användarnamn</label>
         <input type="text" class="form-control" id="title" required />

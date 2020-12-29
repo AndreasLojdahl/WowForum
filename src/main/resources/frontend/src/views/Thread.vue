@@ -65,11 +65,7 @@ export default {
     },
   },
   created() {
-    // let id = this.$route.params.id;
-    // if(this.thread.thread_id !== id){
-
-    // }
-    console.log(this.thread);
+ 
   },
 };
 </script>
