@@ -31,7 +31,7 @@ public class ThreadController {
     }
 
     @PostMapping("/{forum_id}/threads")
-    public ResponseEntity<Thread> addThread(@RequestBody ThreadDto thread, @RequestParam long forum_id){
+    public ResponseEntity<Thread> addThread(@PathVariable long forum_id, @RequestBody ThreadDto thread ){
         var newThread = threadService.addThread(thread, forum_id);
         return ResponseEntity.ok(newThread);
     }

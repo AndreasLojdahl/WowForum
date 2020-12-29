@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     forums: null,
-    forum: null
+    forum: null,
+    thread: null
   },
   mutations: {
     setForums(state, data){
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     },
     setForum(state, data){
       state.forum = data;
+    },
+    setThread(state, data){
+      state.thread = data
     }
   },
   actions: {
