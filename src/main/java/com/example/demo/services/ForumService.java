@@ -25,6 +25,11 @@ public class ForumService {
         return forumRepo.findAll();
     }
 
+    public Forum getOneForum(String name){
+        System.out.println("hämtar 1");
+        return forumRepo.findByName(name);
+    }
+
     public Forum addForum(Forum forum){
         return forumRepo.save(forum);
     }

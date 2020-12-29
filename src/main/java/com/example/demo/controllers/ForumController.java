@@ -25,6 +25,12 @@ public class ForumController {
         return ResponseEntity.ok(forums);
     }
 
+    @GetMapping("/{name}")
+    public ResponseEntity<Forum> getForum(@PathVariable String name){
+        var forum = forumService.getOneForum(name);
+        return ResponseEntity.ok(forum);
+    }
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Forum> addForum(@RequestBody Forum forum){
         var newForum = forumService.addForum(forum);

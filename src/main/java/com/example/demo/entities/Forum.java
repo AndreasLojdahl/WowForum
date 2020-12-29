@@ -23,7 +23,4 @@ public class Forum {
     @JoinColumn(name = "forum_id")
     private Set<Thread> threads;
 
-
-
-
 }

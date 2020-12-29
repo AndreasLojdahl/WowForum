@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ThreadRepo extends JpaRepository<Thread, Long> {
 
-    //@Query(value = "SELECT * FROM threads WHERE forum_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM threads WHERE forum_id = ?1", nativeQuery = true)
     List<Thread> findAllByForumId(long forum_id);
 
 }
