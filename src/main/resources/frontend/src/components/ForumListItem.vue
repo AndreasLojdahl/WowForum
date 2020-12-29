@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5 border-bottom border-dark" @click="goTo()">
+  <div class="container mt-5 border-bottom border-dark cont" @click="goTo()">
     <div class="row justify-content-between">
       <h2>{{ threadObj.title }}</h2>
       <h6>{{ getDate }}</h6>
@@ -25,4 +25,11 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+
+.cont:hover{
+    cursor: pointer;
+    background-color: rgba(58, 58, 58, 0.68);
+    color: white;
+}
+</style>

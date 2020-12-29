@@ -15,7 +15,7 @@
           v-model="message.messageContent"
         />
       </div>
-      <button type="submit" class="btn btn-secondary">
+      <button type="submit" class="btn btn-dark">
         Skicka meddelandet
       </button>
     </form>

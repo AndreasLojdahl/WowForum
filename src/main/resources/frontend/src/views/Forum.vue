@@ -25,7 +25,7 @@
           v-model="thread.initialMessage"
         />
       </div>
-      <button type="submit" class="btn btn-secondary">
+      <button type="submit" class="btn btn-dark">
         Skapa ny tråd
       </button>
     </form>

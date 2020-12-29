@@ -1,6 +1,11 @@
 <template>
      <div class="container">
-
+    <div class="wow-header bg-dark text-light font-weight-bold row">
+        <h3 class="col-10">Wow Forum</h3>
+        <div class="col-2 d-flex align-items-center">
+            <div class="col text-center log-in" @click="goToLogIn()">Logga in</div>   
+        </div>
+    </div>
     <div class="row ">
       <div
         id="nav"
@@ -8,7 +13,7 @@
         :key="forum.id"
         :class="forum.name"
         class="col cont"
-        @click="navigate(forum)"
+        @click="goToForum(forum)"
       >
         {{ forum.name }}
       </div>
@@ -27,13 +32,15 @@ export default {
     this.$store.dispatch("fetchAllForums");
   },
   methods: {
-    navigate(forum) {
+    goToForum(forum) {
       console.log(forum);
       if(this.$router.currentRoute.path !== '/' + forum.name){
         this.$router.push({ path: `/${forum.name}` });
       }
-      
     },
+    goToLogIn(){
+        this.$router.push({ path: "/login" });
+    }
   },
 };
 </script>
@@ -62,13 +69,24 @@ export default {
   background-color: #a38aaa;
 }
 
+.wow-header{
+    height: 5vh;
+}
+
 .cont{
   height: 5vh;
   color: rgb(63, 65, 64);
-  font-size: 1.5em;
-  margin-top: 2em;
-  
+  font-size: 1.5em; 
+  text-align: center;
 }
 
+.cont:hover{
+    cursor: pointer;
+    background-color: rgb(47, 48, 58);
+    color: white;
+}
+.log-in:hover{
+    cursor: pointer;
+}
 
 </style>
