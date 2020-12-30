@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center mt-5">
-      <h1>{{ thread.title }}</h1>
+      <h1 v-if="thread">{{ thread.title }}</h1>
     </div>
 
     <form @submit.prevent="createMessage" class="mb-4">

@@ -24,6 +24,13 @@ public class User {
     private String password;
     private String roles;
 
+    public User(String username, String email, String password, String roles) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
 
     @JsonIgnore
     public String getPassword() {

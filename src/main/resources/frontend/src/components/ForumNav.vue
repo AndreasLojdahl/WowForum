@@ -4,6 +4,7 @@
         <h3 class="col-10">Wow Forum</h3>
         <div class="col-2 d-flex align-items-center">
             <div class="col text-center log-in" @click="goToLogIn()">Logga in</div>   
+            <div v-if="user" class="col text-center log-in" >{{user.username}}</div>   
         </div>
     </div>
     <div class="row ">
@@ -27,6 +28,9 @@ export default {
     forums() {
       return this.$store.state.forums;
     },
+    user() {
+      return this.$store.state.loggedInUser
+    }
   },
   created() {
     this.$store.dispatch("fetchAllForums");

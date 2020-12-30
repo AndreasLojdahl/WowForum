@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="forum">
     <div class="row justify-content-center mt-5">
-      <h1 class="forum-header">{{ forum.name }}</h1>
+      <h1  class="forum-header">{{ forum.name }}</h1>
     </div>
 
     <form @submit.prevent="createThread" class="mb-4">
@@ -31,6 +31,7 @@
     </form>
 
     <ForumListItem
+      
       v-for="thread in forum.threads"
       :key="thread.id"
       :threadObj="thread"

@@ -7,31 +7,44 @@ export default new Vuex.Store({
   state: {
     forums: null,
     forum: null,
-    thread: null
+    thread: null,
+    loggedInUser: null
   },
   mutations: {
-    setForums(state, data){
+    setForums(state, data) {
       state.forums = data;
     },
-    setForum(state, data){
+    setForum(state, data) {
       state.forum = data;
     },
-    setThread(state, data){
-      state.thread = data
-    }
+    setThread(state, data) {
+      state.thread = data;
+    },
+    setloggedInUser(state, data) {
+      state.loggedInUser = data;
+    },
   },
   actions: {
-    async fetchAllForums({ commit }){
-      const rawForums = await fetch("/api/v1/forums")
+    async fetchAllForums({ commit }) {
+      const rawForums = await fetch("/api/v1/forums");
       const forums = await rawForums.json();
-      commit("setForums", forums)
+      commit("setForums", forums);
     },
-    async fetchForum({ commit }, name){
-      const rawForum = await fetch(`/api/v1/forums/${name}`)
+    async fetchForum({ commit }, name) {
+      const rawForum = await fetch(`/api/v1/forums/${name}`);
       const forum = await rawForum.json();
-      commit("setForum", forum)
-    }
+      commit("setForum", forum);
+    },
+    async whoami({ commit }) {
+      let user = await fetch("/auth/whoami");
+      try {
+        user = await user.json();
+        commit("setloggedInUser", user);
+        console.log(this.state.loggedInUser, " USSSEEEERR");
+      } catch {
+        console.log("Not authenticated");
+      }
+    },
   },
-  modules: {
-  }
-})
+  modules: {},
+});
