@@ -10,7 +10,7 @@
 export default {
   props: {
     threadObj: Object,
-    forum: String,
+    forum: Number
   },
   computed: {
     getDate() {
@@ -20,7 +20,7 @@ export default {
   methods: {
     goTo() {
       this.$store.commit("setThread", this.threadObj);
-      this.$router.push({ path: `${this.forum}/${this.threadObj.thread_id}` });
+      this.$router.push({ path: `${this.forum}/thread/${this.threadObj.thread_id}` });
     },
   },
 };

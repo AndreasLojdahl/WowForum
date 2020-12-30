@@ -23,10 +23,11 @@ public class Thread {
     private String title;
     private long forum_id;
 
-    public Thread(String title, long forum_id){
+    public Thread(String title, long forum_id /*User user*/){
         this.title = title;
         this.forum_id = forum_id;
         this.timestamp = new Date().getTime();
+        //this.threadOwner = user;
     }
 
     @OneToMany

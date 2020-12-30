@@ -29,14 +29,18 @@
         Skapa ny tråd
       </button>
     </form>
+    <div class="list-item-container">
 
     <ForumListItem
       
       v-for="thread in forum.threads"
       :key="thread.id"
       :threadObj="thread"
-      :forum="forum.name"
+      :forum="forum.forum_id"
     />
+    
+    </div>
+
   </div>
 </template>
 
@@ -59,18 +63,22 @@ export default {
     };
   },
   computed: {
-    paramName() {
-      return this.$route.params.forum;
+    paramId() {
+      return this.$route.params.forum_id;
     },
     forum() {
       return this.$store.state.forum;
     },
+    user(){
+      return this.$store.state.loggedInUser;
+    }
   },
   methods: {
     async createThread() {
       let threadToCreate = {
         title: this.thread.title,
         initialMessage: this.thread.initialMessage,
+        user: this.user.user_id
       };
       let newThread = await fetch(
         `/api/v1/forums/${this.forum.forum_id}/threads`,
@@ -85,13 +93,17 @@ export default {
     },
   },
   watch: {
-    paramName: function() {
-      this.$store.dispatch("fetchForum", this.paramName);
+    paramId: function() {
+      this.$store.dispatch("fetchForum", this.paramId);
     },
   },
   async created() {
-    await this.$store.dispatch("fetchForum", this.paramName);
+    await this.$store.dispatch("fetchForum", this.paramId);
   },
 };
 </script>
-<style></style>
+<style scoped>
+.list-item-container{
+  margin-bottom: 5em;
+}
+</style>>

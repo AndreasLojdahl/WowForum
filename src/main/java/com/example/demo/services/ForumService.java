@@ -25,9 +25,9 @@ public class ForumService {
         return forumRepo.findAll();
     }
 
-    public Forum getOneForum(String name){
+    public Forum getOneForum(long id){
         System.out.println("hämtar 1");
-        return forumRepo.findByName(name);
+        return forumRepo.findById(id);
     }
 
     public Forum addForum(Forum forum){

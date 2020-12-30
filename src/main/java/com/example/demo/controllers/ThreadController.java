@@ -25,7 +25,7 @@ public class ThreadController {
     }
 
     @GetMapping("/{forum_id}/threads/{thread_id}")
-    public ResponseEntity<Thread> getThreadById(@RequestParam long forum_id, @RequestParam long thread_id){
+    public ResponseEntity<Thread> getThreadById(@PathVariable long forum_id, @PathVariable long thread_id){
         var thread = threadService.getThreadById(forum_id,thread_id);
         return ResponseEntity.ok(thread);
     }

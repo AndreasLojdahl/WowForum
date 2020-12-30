@@ -25,9 +25,9 @@ public class ForumController {
         return ResponseEntity.ok(forums);
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<Forum> getForum(@PathVariable String name){
-        var forum = forumService.getOneForum(name);
+    @GetMapping("/{id}")
+    public ResponseEntity<Forum> getForum(@PathVariable long id){
+        var forum = forumService.getOneForum(id);
         return ResponseEntity.ok(forum);
     }
 

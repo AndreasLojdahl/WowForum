@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="thread">
     <div class="row justify-content-center mt-5">
-      <h1 v-if="thread">{{ thread.title }}</h1>
+      <h1>{{ thread.title }}</h1>
     </div>
 
     <form @submit.prevent="createMessage" class="mb-4">
@@ -38,6 +38,9 @@ export default {
     thread() {
       return this.$store.state.thread;
     },
+    user() {
+      return this.$store.state.loggedInUser;
+    },
   },
   data() {
     return {
@@ -64,8 +67,13 @@ export default {
       console.log(newMessage);
     },
   },
-  created() {
- 
+  async created() {
+    if (!this.thread) {
+      await this.$store.dispatch("fetchThread", {
+        forumId: this.$route.params.forum_id,
+        threadId: this.$route.params.thread_id,
+      });
+    }
   },
 };
 </script>

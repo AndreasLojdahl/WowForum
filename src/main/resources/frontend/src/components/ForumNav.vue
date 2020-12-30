@@ -38,8 +38,8 @@ export default {
   methods: {
     goToForum(forum) {
       console.log(forum);
-      if(this.$router.currentRoute.path !== '/' + forum.name){
-        this.$router.push({ path: `/${forum.name}` });
+      if(this.$router.currentRoute.path !== '/forum/' + forum.forum_id){
+        this.$router.push({ path: `/forum/${forum.forum_id}` });
       }
     },
     goToLogIn(){

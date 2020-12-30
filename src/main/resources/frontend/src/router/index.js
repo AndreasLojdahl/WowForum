@@ -19,12 +19,12 @@ const routes = [
     component: CreateAccount,
   },
   {
-    path: "/:forum",
+    path: "/forum/:forum_id",
     name: "forum",
     component: Forum,
   },
   {
-    path: "/:forum/:id",
+    path: "/forum/:forum_id/thread/:thread_id",
     name: "thread",
     component: Thread,
   },

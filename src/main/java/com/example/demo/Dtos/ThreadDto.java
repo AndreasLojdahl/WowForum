@@ -12,4 +12,5 @@ public class ThreadDto {
     private String title;
     //private long forum_id;
     private String initialMessage;
+    private long user;
 }
