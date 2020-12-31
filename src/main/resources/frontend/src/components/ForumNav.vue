@@ -1,10 +1,11 @@
 <template>
      <div class="container">
     <div class="wow-header bg-dark text-light font-weight-bold row">
-        <h3 class="col-10">Wow Forum</h3>
-        <div class="col-2 d-flex align-items-center">
-            <div class="col text-center log-in" @click="goToLogIn()">Logga in</div>   
+        <h3 class="col-8">Wow Forum</h3>
+        <div class="col-4 d-flex align-items-center">
             <div v-if="user" class="col text-center log-in" >{{user.username}}</div>   
+            <div v-if="!user" class="col text-center log-in" @click="goToLogIn()">Logga in</div>   
+            <div v-if="user" class="col text-center log-in" @click="logOut()">Logga ut</div>   
         </div>
     </div>
     <div class="row ">
@@ -44,6 +45,21 @@ export default {
     },
     goToLogIn(){
         this.$router.push({ path: "/login" });
+    },
+    async logOut(){
+      fetch("/auth/logout", {
+      method: "GET",
+    })
+      .then((response) => {
+        if (response.ok) {
+          this.$store.commit("setloggedInUser", null);
+          if (this.$route.path === "/") return;
+          this.$router.push("/");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      }); 
     }
   },
 };

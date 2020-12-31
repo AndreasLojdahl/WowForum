@@ -19,7 +19,7 @@ public class ThreadController {
     ThreadService threadService;
 
     @GetMapping("/{id}/threads")
-    public ResponseEntity<List<Thread>> getAllThreadsById(@RequestParam long id){
+    public ResponseEntity<List<Thread>> getAllThreadsById(@PathVariable long id){
         var threads = threadService.getThreadsByForumId(id);
         return ResponseEntity.ok(threads);
     }
@@ -38,7 +38,7 @@ public class ThreadController {
 
     @PutMapping("/{forum_id}/threads/{thread_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateThread(@RequestBody Thread thread, @RequestParam long thread_id){
+    public void updateThread(@RequestBody Thread thread, @PathVariable long thread_id){
         threadService.updateThread(thread, thread_id);
     }
 

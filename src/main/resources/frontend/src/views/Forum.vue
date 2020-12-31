@@ -4,7 +4,7 @@
       <h1  class="forum-header">{{ forum.name }}</h1>
     </div>
 
-    <form @submit.prevent="createThread" class="mb-4">
+    <form v-if="user" @submit.prevent="createThread" class="mb-4">
       <div class="form-group">
         <label for="title">Titel</label>
         <input

@@ -4,7 +4,7 @@
       <h1>{{ thread.title }}</h1>
     </div>
 
-    <form @submit.prevent="createMessage" class="mb-4">
+    <form v-if="user" @submit.prevent="createMessage" class="mb-4">
       <div class="form-group">
         <label for="message">Meddelande</label>
         <input
