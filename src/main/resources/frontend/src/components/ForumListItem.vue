@@ -15,15 +15,21 @@
         <h6 class="">{{ getDate }}</h6>
       </div>
 
-      <div class="col-1 d-flex justify-content-end ">
+      <div
+        class="col d-flex justify-content-end "
+        v-if="user ? user.roles.includes('ADMIN') : false"
+      >
+        <!-- <button type="button" class="btn btn-dark" @click.stop="deleteThread()">Ta bort</button>
+        <button type="button" class="btn btn-dark" @click.stop="lockThread()">lås</button> -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="30"
+          height="30"
           fill="currentColor"
           class="bi bi-trash trash align-text-center"
           viewBox="0 0 16 16"
           @click.stop="deleteThread()"
+          
         >
           <path
             d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
@@ -36,12 +42,13 @@
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="30"
+          height="30"
           fill="currentColor"
+          :class="{isLocked: threadObj.locked, isOpen: !threadObj.locked}"
           class="bi bi-file-lock2"
           viewBox="0 0 16 16"
-          @click="lockThread()"
+          @click.stop="lockThread()"
         >
           <path
             d="M8 5a1 1 0 0 1 1 1v1H7V6a1 1 0 0 1 1-1zm2 2.076V6a2 2 0 1 0-4 0v1.076c-.54.166-1 .597-1 1.224v2.4c0 .816.781 1.3 1.5 1.3h3c.719 0 1.5-.484 1.5-1.3V8.3c0-.627-.46-1.058-1-1.224z"
@@ -67,7 +74,9 @@ export default {
     user() {
       return this.$store.state.loggedInUser;
     },
-    // v-if="user ? user.roles.includes('ADMIN') : false"
+    thread(){
+      return this.threadObj
+    }
   },
   methods: {
     goTo() {
@@ -88,8 +97,36 @@ export default {
       }
     },
     async lockThread() {
-      
-    }
+      console.log("THread Obj", this.threadObj);
+      console.log(
+        "LOCKED",
+        this.threadObj.locked + " - !LOCKED",
+        !this.threadObj.locked
+      );
+      let thread = {
+        title: this.threadObj.title,
+        forum_id: this.threadObj.forum_id,
+        timestamp: this.threadObj.timestamp,
+        threadOwner: this.threadObj.threadOwner,
+        locked: !this.threadObj.locked,
+        messages: this.threadObj.messages,
+        user: this.threadObj.user,
+      };
+      let response = await fetch(
+        `/api/v1/forums/threads/${this.threadObj.thread_id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(thread),
+        }
+      );
+      if (response.status === 204) {
+        console.log("dispatch")
+        this.$store.dispatch("fetchForum", this.forum_id);
+      }
+
+
+    },
   },
   // created(){
   //   console.log(this.threadObj, "THREADOBJ")
@@ -104,7 +141,12 @@ export default {
 .item:hover {
   cursor: pointer;
 }
-
+.isLocked{
+  color: red;
+}
+.isOpen{
+color:green
+}
 svg {
   width: 4rem;
 }
@@ -112,5 +154,10 @@ svg:hover {
   width: 4rem;
   cursor: pointer;
   color: red;
+}
+svg.isLocked:hover {
+  width: 4rem;
+  cursor: pointer;
+  color:green
 }
 </style>

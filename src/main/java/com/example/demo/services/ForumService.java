@@ -26,7 +26,6 @@ public class ForumService {
     }
 
     public Forum getOneForum(long id){
-        System.out.println("hämtar 1");
         return forumRepo.findById(id);
     }
 

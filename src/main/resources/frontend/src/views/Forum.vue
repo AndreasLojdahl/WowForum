@@ -67,7 +67,6 @@ export default {
       return this.$route.params.forum_id;
     },
     forum() {
-      // console.log(this.$store.state.forum)
       return this.$store.state.forum;
     },
     user(){

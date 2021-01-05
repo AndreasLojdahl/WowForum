@@ -37,7 +37,7 @@ public class ThreadController {
         return ResponseEntity.ok(newThread);
     }
 
-    @PutMapping("/{forum_id}/threads/{thread_id}")
+    @PutMapping("/threads/{thread_id}")
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateThread(@RequestBody Thread thread, @PathVariable long thread_id){
