@@ -33,6 +33,7 @@ public class Thread {
     }
 
     @OneToMany(/*mappedBy = "thread"*/cascade=CascadeType.ALL, orphanRemoval=true)
+    @OrderBy("timestamp ASC")
     @JoinColumn(name = "thread_id")
     private Set<Message> messages;
 

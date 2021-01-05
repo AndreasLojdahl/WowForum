@@ -20,9 +20,11 @@ public class Message {
     private long timestamp;
     private String messageContent;
     private long thread_id;
+    private boolean warningPost;
 
-    public Message(String message, long thread_id, User user){
+    public Message(String message, boolean warningPost, long thread_id, User user){
         this.messageContent = message;
+        this.warningPost = warningPost;
         this.thread_id = thread_id;
         //this.thread = thread;
         this.timestamp = new Date().getTime();

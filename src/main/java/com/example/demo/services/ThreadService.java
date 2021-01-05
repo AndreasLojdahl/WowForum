@@ -56,7 +56,7 @@ public class ThreadService {
         Thread threadToCreate = new Thread(thread.getTitle(), forum_id, user );
         var newThread = threadRepo.save(threadToCreate);
 
-        var newMessage = new Message(thread.getInitialMessage(), newThread.getThread_id(), user);
+        var newMessage = new Message(thread.getInitialMessage(),false, newThread.getThread_id(), user);
         messageRepo.save(newMessage);
         return newThread;
     }

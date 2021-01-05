@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-if="thread">
+  <div class="container mb-5 " v-if="thread">
     <div class="col text-center justify-content-center mt-5">
       <h1>{{ thread.title }}</h1>
       <div v-if="thread.locked === true" class="col mt-5">
@@ -20,7 +20,7 @@
     </div>
 
     <form
-      v-if="(user && thread.locked === false) || user.roles.includes('ADMIN')"
+      v-if="user && thread.locked === false || user? user.roles.includes('ADMIN') : false"
       @submit.prevent="createMessage"
       class="mb-4"
     >
@@ -34,10 +34,10 @@
           v-model="message.messageContent"
         />
       </div>
-      <!-- <div class="form-check mb-3">
+      <div v-if="user? user.roles.includes('ADMIN'): false" class="form-check mb-3">
         <input type="checkbox" class="form-check-input" id="warningPost" v-model="message.warningPost" />
         <label class="form-check-label" for="warningPost">Varnings inlägg</label>
-      </div> -->
+      </div>
       <button type="submit" class="btn btn-dark">
         Skicka meddelandet
       </button>
@@ -47,6 +47,7 @@
       v-for="message in thread.messages"
       :key="message.message_id"
       :message="message"
+      class="border-bottom border-dark"
     />
   </div>
 </template>
@@ -78,7 +79,7 @@ export default {
     async createMessage() {
       let messageToCreate = {
         messageContent: this.message.messageContent,
-        //warningPost: this.message.warningPost
+        warningPost: this.message.warningPost
       };
 
       let newMessage = await fetch(
@@ -91,7 +92,8 @@ export default {
       );
       newMessage = await newMessage.json();
       this.$store.commit("addNewMessage", newMessage);
-      console.log(newMessage);
+      this.message.messageContent = null;
+      this.message.warningPost = null;
     },
   },
   async created() {

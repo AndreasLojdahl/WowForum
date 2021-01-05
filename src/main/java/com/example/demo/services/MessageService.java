@@ -29,7 +29,14 @@ public class MessageService {
         }
         //var thread = threadRepo.findById(thread_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Couldn't find thread"));
 
-        var newMessage = new Message(message.getMessageContent(), thread_id, user);
+        var newMessage = new Message(message.getMessageContent(),message.isWarningPost(), thread_id, user);
         return messageRepo.save(newMessage);
+    }
+
+    public void deleteMessage(long thread_id){
+        if(!messageRepo.existsById(thread_id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"the message with that id doesn't exist");
+        }
+        messageRepo.deleteById(thread_id);
     }
 }
