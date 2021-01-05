@@ -6,6 +6,7 @@ import com.example.demo.services.ThreadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +38,17 @@ public class ThreadController {
     }
 
     @PutMapping("/{forum_id}/threads/{thread_id}")
+    @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateThread(@RequestBody Thread thread, @PathVariable long thread_id){
         threadService.updateThread(thread, thread_id);
+    }
+
+    @DeleteMapping("/threads/{thread_id}")
+    @Secured("ROLE_ADMIN")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteThread(@PathVariable long thread_id){
+        threadService.deleteThread(thread_id);
     }
 
 

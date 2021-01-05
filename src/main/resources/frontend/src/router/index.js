@@ -3,11 +3,17 @@ import VueRouter from 'vue-router'
 import Forum from '../views/Forum.vue'
 import Thread from '../views/Thread.vue'
 import Login from '../views/Login.vue'
+import Home from '../views/Home.vue'
 import CreateAccount from '../views/CreateAccount.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: "/",
+    name: "Home",
+    component: Home,
+  },
   {
     path: "/login",
     name: "login",

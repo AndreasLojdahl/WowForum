@@ -20,6 +20,12 @@ export default new Vuex.Store({
     setThread(state, data) {
       state.thread = data;
     },
+    addNewThread(state, data){
+      state.forum.threads.push(data)
+    },
+    addNewMessage(state, data){
+      state.thread.messages.push(data)
+    },
     setloggedInUser(state, data) {
       state.loggedInUser = data;
     },

@@ -6,6 +6,7 @@ import com.example.demo.entities.Thread;
 import com.example.demo.repositories.ForumRepo;
 import com.example.demo.repositories.MessageRepo;
 import com.example.demo.repositories.ThreadRepo;
+import com.example.demo.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,10 @@ public class ThreadService {
     ForumRepo forumRepo;
     @Autowired
     MessageRepo messageRepo;
+    @Autowired
+    MyUserDetailsService myUserDetailsService;
+    @Autowired
+    UserRepo userRepo;
 
     public List<Thread> getThreadsByForumId(long forum_id) {
         if(forumRepo.existsById(forum_id)){
@@ -41,10 +46,17 @@ public class ThreadService {
 
     public Thread addThread(ThreadDto thread, long forum_id){
 
-        Thread threadToCreate = new Thread(thread.getTitle(), forum_id);
+
+        var username = myUserDetailsService.getCurrentUser();
+        var user = userRepo.findByUsername(username);
+        if(user == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
+        }
+
+        Thread threadToCreate = new Thread(thread.getTitle(), forum_id, user );
         var newThread = threadRepo.save(threadToCreate);
 
-        var newMessage = new Message(thread.getInitialMessage(), newThread.getThread_id());
+        var newMessage = new Message(thread.getInitialMessage(), newThread.getThread_id(), user);
         messageRepo.save(newMessage);
         return newThread;
     }

@@ -29,7 +29,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
                                                    Resource location) throws IOException {
                         Resource requestedResource = location.createRelative(resourcePath);
                         return requestedResource.exists() && requestedResource.isReadable() ? requestedResource
-                                : new ClassPathResource("/static/index.html"); //TODO Fråga Johan vad som ska stå här?..
+                                : new ClassPathResource("/static/index.html");
                     }
                 });
     }
@@ -47,7 +47,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:8080");
+                registry.addMapping("/**").allowedOrigins("http://localhost:8080").allowedMethods("DELETE","GET","PUT","POST");
             }
         };
     }

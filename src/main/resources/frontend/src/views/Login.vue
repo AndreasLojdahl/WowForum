@@ -23,6 +23,7 @@
   </div>
 </template>
 <script>
+
 export default {
   name: "Login",
   methods: {
@@ -43,8 +44,6 @@ export default {
         encodeURIComponent(userToLogin.username) +
         "&password=" +
         encodeURIComponent(userToLogin.password);
-
-      console.log("LOOGGGIN");
       let response = await fetch("/auth/login", {
         method: "POST",
         headers: {
@@ -58,7 +57,7 @@ export default {
       } else {
         console.log("SUCCESS: Login succeeded");
         await this.$store.dispatch("whoami");
-        this.$router.go(-1);
+        this.$router.push({path: "/"});
       }
     },
   },

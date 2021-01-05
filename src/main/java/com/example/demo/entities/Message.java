@@ -21,12 +21,18 @@ public class Message {
     private String messageContent;
     private long thread_id;
 
-    public Message(String message, long thread_id){
+    public Message(String message, long thread_id, User user){
         this.messageContent = message;
         this.thread_id = thread_id;
+        //this.thread = thread;
         this.timestamp = new Date().getTime();
+        this.messageOwner = user;
 
     }
+
+//    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+//    private Thread thread;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")

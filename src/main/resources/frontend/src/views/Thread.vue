@@ -36,6 +36,7 @@ export default {
   },
   computed: {
     thread() {
+      console.log(this.$store.state.thread, "Thread Computed")
       return this.$store.state.thread;
     },
     user() {
@@ -64,16 +65,17 @@ export default {
         }
       );
       newMessage = await newMessage.json();
+      this.$store.commit("addNewMessage", newMessage)
       console.log(newMessage);
     },
   },
   async created() {
-    if (!this.thread) {
+    // if (!this.thread) {
       await this.$store.dispatch("fetchThread", {
         forumId: this.$route.params.forum_id,
         threadId: this.$route.params.thread_id,
       });
-    }
+    // }
   },
 };
 </script>

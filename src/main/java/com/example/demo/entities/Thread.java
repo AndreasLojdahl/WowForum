@@ -22,15 +22,17 @@ public class Thread {
     private long timestamp;
     private String title;
     private long forum_id;
+    private boolean isLocked;
 
-    public Thread(String title, long forum_id /*User user*/){
+    public Thread(String title, long forum_id , User user){
         this.title = title;
         this.forum_id = forum_id;
         this.timestamp = new Date().getTime();
-        //this.threadOwner = user;
+        this.threadOwner = user;
+        this.isLocked = false;
     }
 
-    @OneToMany
+    @OneToMany(/*mappedBy = "thread"*/cascade=CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name = "thread_id")
     private Set<Message> messages;
 

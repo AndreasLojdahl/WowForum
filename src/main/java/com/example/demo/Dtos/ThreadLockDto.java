@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ThreadDto {
+public class ThreadLockDto {
 
-    private String title;
-    //private long forum_id;
-    private String initialMessage;
-    //private long user_id;
+    private boolean isLocked;
 }

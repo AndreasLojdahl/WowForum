@@ -32,7 +32,14 @@ public class UserService {
         if (userRepo.existsByUsername(user.getUsername())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
         }
+
         var newUser = myUserDetailsService.addUser(user.getUsername(), user.getEmail(), user.getPassword(), user.getRoles());
+
+        var currentUser = this.getCurrentUser();
+
+        if(currentUser == null || !currentUser.getRoles().contains("ADMIN") || newUser.getRoles() == null || newUser.getRoles().isBlank()){
+            newUser.setRoles("USER");
+        }
         return userRepo.save(newUser);
     }
 

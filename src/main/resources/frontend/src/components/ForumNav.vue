@@ -1,12 +1,18 @@
 <template>
-     <div class="container">
+  <div class="">
     <div class="wow-header bg-dark text-light font-weight-bold row">
-        <h3 class="col-8">Wow Forum</h3>
-        <div class="col-4 d-flex align-items-center">
-            <div v-if="user" class="col text-center log-in" >{{user.username}}</div>   
-            <div v-if="!user" class="col text-center log-in" @click="goToLogIn()">Logga in</div>   
-            <div v-if="user" class="col text-center log-in" @click="logOut()">Logga ut</div>   
+      <div class="col" @click="goToHome()">Wow Forum</div>
+      
+        <div v-if="user" class="col text-center log-in">
+          {{ user.username }}
         </div>
+        <div v-if="!user" class="col-4 text-center log-in" @click="goToLogIn()">
+          Logga in
+        </div>
+        <div v-if="user" class="col-4 text-center log-in" @click="logOut()">
+          Logga ut
+        </div>
+     
     </div>
     <div class="row ">
       <div
@@ -20,18 +26,18 @@
         {{ forum.name }}
       </div>
     </div>
-    </div>
+  </div>
 </template>
 <script>
 export default {
-    name: 'ForumNav',
+  name: "ForumNav",
   computed: {
     forums() {
       return this.$store.state.forums;
     },
     user() {
-      return this.$store.state.loggedInUser
-    }
+      return this.$store.state.loggedInUser;
+    },
   },
   created() {
     this.$store.dispatch("fetchAllForums");
@@ -39,34 +45,35 @@ export default {
   methods: {
     goToForum(forum) {
       console.log(forum);
-      if(this.$router.currentRoute.path !== '/forum/' + forum.forum_id){
+      if (this.$router.currentRoute.path !== "/forum/" + forum.forum_id) {
         this.$router.push({ path: `/forum/${forum.forum_id}` });
       }
     },
-    goToLogIn(){
-        this.$router.push({ path: "/login" });
+    goToLogIn() {
+      this.$router.push({ path: "/login" });
     },
-    async logOut(){
+    goToHome() {
+      this.$router.push({ path: "/" });
+    },
+    async logOut() {
       fetch("/auth/logout", {
-      method: "GET",
-    })
-      .then((response) => {
-        if (response.ok) {
-          this.$store.commit("setloggedInUser", null);
-          if (this.$route.path === "/") return;
-          this.$router.push("/");
-        }
+        method: "GET",
       })
-      .catch((error) => {
-        console.error(error);
-      }); 
-    }
+        .then((response) => {
+          if (response.ok) {
+            this.$store.commit("setloggedInUser", null);
+            if (this.$route.path === "/") return;
+            this.$router.push("/");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
 };
 </script>
 <style>
-
-
 .Warrior {
   background-color: #cebc98;
 }
@@ -89,24 +96,27 @@ export default {
   background-color: #a38aaa;
 }
 
-.wow-header{
-    height: 5vh;
+.wow-header {
+  height: 5vh;
 }
 
-.cont{
+.cont {
   height: 5vh;
   color: rgb(63, 65, 64);
-  font-size: 1.5em; 
+  font-size: 1.5em;
   text-align: center;
 }
 
-.cont:hover{
-    cursor: pointer;
-    background-color: rgb(47, 48, 58);
-    color: white;
+.cont:hover {
+  cursor: pointer;
+  background-color: rgb(47, 48, 58);
+  color: white;
 }
-.log-in:hover{
-    cursor: pointer;
+.log-in:hover {
+  cursor: pointer;
 }
 
+.wid {
+  max-width: 100vw;
+}
 </style>
