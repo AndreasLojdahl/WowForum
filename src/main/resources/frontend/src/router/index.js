@@ -4,6 +4,7 @@ import Forum from '../views/Forum.vue'
 import Thread from '../views/Thread.vue'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
+import AdminPage from '../views/AdminPage'
 import CreateAccount from '../views/CreateAccount.vue'
 
 Vue.use(VueRouter)
@@ -18,6 +19,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: AdminPage,
   },
   {
     path: "/create-account",

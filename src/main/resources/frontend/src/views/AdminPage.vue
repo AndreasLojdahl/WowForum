@@ -1,13 +1,14 @@
 <template>
   <div class="container">
-    <form v-if="user" @submit.prevent="createThread" class="mb-4">
+    <h1 class="text-center mt-5">Admin sida</h1>
+    <form @submit.prevent="searchUsers()" class="mb-5">
       <div class="form-group">
-        <label for="username">Användarnamn</label>
+        <label for="username">Sök användare</label>
         <input
+          placeholder="användarnamn"
           type="text"
           class="form-control"
           id="username"
-          required
           v-model="username"
         />
       </div>
@@ -15,14 +16,53 @@
         Sök användare
       </button>
     </form>
+    <UserListItem @deletedUser="searchUsers()" v-for="user in this.users" :key="user.user_id" :user="user" class="mb-4 border-bottom border-dark"/>
+
   </div>
 </template>
 <script>
+
+import UserListItem from '../components/UserListItem.vue';
 export default {
+  components: { UserListItem },
+  name: "AdminPage",
   data() {
     return {
-      username: null
+      username: "",
     };
+  },
+  computed: {
+    user() {
+      return this.$store.state.loggedInUser;
+    },
+    users(){
+       return this.$store.state.users; 
+    }
+  },
+  methods: {
+    // async searchUser() {
+    //   let users = await fetch(`/api/v1/users?username=${this.username}`, {
+    //     method: "GET",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(users),
+    //   });
+    //   users = await users.json();
+
+    //   console.log(users, "users");
+    // },
+    searchUsers(){
+        this.$store.dispatch("searchUsers", this.username)
+
+        console.log(this.users, "USERS IN ADMIN PAGE")
+    }
+  },
+  async created() {
+    if (!this.user) {
+      await this.$store.dispatch("whoami");
+      if (!this.user || !this.user.roles.includes("ADMIN")) {
+        this.$router.push({ path: "/" });
+      }
+    }
   },
 };
 </script>

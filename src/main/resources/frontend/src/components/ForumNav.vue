@@ -1,11 +1,46 @@
 <template>
   <div class="">
-    <div class="wow-header bg-dark text-light font-weight-bold row">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="navbar-brand" @click="goToHome()">Wow Forum</div>
+      <div class=" navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <div v-if="user? user.roles.includes('ADMIN'): false" class="nav-item nav-link"  @click="goToAdmin()">
+          Admin sida
+        </div>
+          <div v-if="!user" class="nav-item nav-link" @click="goToLogIn()">
+            Logga in
+          </div>
+          <div v-if="user" class="nav-item nav-link" @click="logOut()">
+            Logga ut {{ user.username }}
+          </div>
+          <!-- <a class="nav-item nav-link disabled" href="#">Disabled</a> -->
+        </div>
+      </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class=" navbar-collapse d-flex justify-content-center row">
+        <div
+          v-for="forum in forums"
+          :key="forum.id"
+          :class="forum.name"
+          class="nav-item nav-link col text-center forums-font"
+          @click="goToForum(forum)"
+        >
+          {{ forum.name }}
+        </div>
+      </div>
+    </nav>
+    <!-- <div class="wow-header bg-dark text-light font-weight-bold row">
       <div class="col" @click="goToHome()">Wow Forum</div>
       
         <div v-if="user" class="col text-center log-in">
           {{ user.username }}
         </div>
+
+        <div v-if="user? user.roles.includes('ADMIN'): false" @click="goToAdmin()">
+          Admin sida
+        </div>
+
         <div v-if="!user" class="col-4 text-center log-in" @click="goToLogIn()">
           Logga in
         </div>
@@ -25,7 +60,7 @@
       >
         {{ forum.name }}
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -54,6 +89,9 @@ export default {
     },
     goToHome() {
       this.$router.push({ path: "/" });
+    },
+    goToAdmin() {
+      this.$router.push({ path: "/admin" });
     },
     async logOut() {
       fetch("/auth/logout", {
@@ -96,27 +134,13 @@ export default {
   background-color: #a38aaa;
 }
 
-.wow-header {
-  height: 5vh;
-}
-
-.cont {
-  height: 5vh;
-  color: rgb(63, 65, 64);
-  font-size: 1.5em;
-  text-align: center;
+.nav-link:hover {
+  cursor: pointer;
 }
 
 .cont:hover {
   cursor: pointer;
   background-color: rgb(47, 48, 58);
   color: white;
-}
-.log-in:hover {
-  cursor: pointer;
-}
-
-.wid {
-  max-width: 100vw;
 }
 </style>

@@ -8,7 +8,8 @@ export default new Vuex.Store({
     forums: null,
     forum: null,
     thread: null,
-    loggedInUser: null
+    loggedInUser: null,
+    users: null
   },
   mutations: {
     setForums(state, data) {
@@ -20,15 +21,18 @@ export default new Vuex.Store({
     setThread(state, data) {
       state.thread = data;
     },
-    addNewThread(state, data){
-      state.forum.threads.push(data)
+    addNewThread(state, data) {
+      state.forum.threads.push(data);
     },
-    addNewMessage(state, data){
-      state.thread.messages.push(data)
+    addNewMessage(state, data) {
+      state.thread.messages.push(data);
     },
     setloggedInUser(state, data) {
       state.loggedInUser = data;
     },
+    setUsers(state, data){
+      state.users = data
+    }
   },
   actions: {
     async fetchAllForums({ commit }) {
@@ -42,9 +46,11 @@ export default new Vuex.Store({
       commit("setForum", forum);
     },
     async fetchThread({ commit }, obj) {
-      const rawThread = await fetch(`/api/v1/forums/${obj.forumId}/threads/${obj.threadId}`);
+      const rawThread = await fetch(
+        `/api/v1/forums/${obj.forumId}/threads/${obj.threadId}`
+      );
       const thread = await rawThread.json();
-      console.log(thread, "FETCHEDTHREAD")
+      console.log(thread, "FETCHEDTHREAD");
       commit("setThread", thread);
     },
     async whoami({ commit }) {
@@ -56,6 +62,15 @@ export default new Vuex.Store({
       } catch {
         console.log("Not authenticated");
       }
+    },
+    async searchUsers({commit}, username) {
+      let users = await fetch(`/api/v1/users?username=${username}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(users),
+      });
+      users = await users.json();
+      commit("setUsers", users)
     },
   },
   modules: {},

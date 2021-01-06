@@ -28,6 +28,10 @@ public class UserService {
         return userRepo.findByUsername(username);
     }
 
+//    public List<User> searchUser(String username){
+//        return userRepo.searchUser(username);
+//    }
+
     public User registerUser(UserDto user) {
         if (userRepo.existsByUsername(user.getUsername())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
@@ -43,7 +47,18 @@ public class UserService {
         return userRepo.save(newUser);
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers(String username) {
+
+        if(username != null && !username.isEmpty()){
+            return userRepo.findByUsernameContains(username);
+        }
         return userRepo.findAll();
+    }
+
+    public void deleteUser(long user_id){
+        if(!userRepo.existsById(user_id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"the user with that id doesn't exist");
+        }
+        userRepo.deleteById(user_id);
     }
 }

@@ -20,7 +20,7 @@
     </div>
 
     <form
-      v-if="user && thread.locked === false || user? user.roles.includes('ADMIN') : false"
+      v-if="isAdmin || isUserAndThreadIsOpen"
       @submit.prevent="createMessage"
       class="mb-4"
     >
@@ -36,7 +36,7 @@
       </div>
       <div v-if="user? user.roles.includes('ADMIN'): false" class="form-check mb-3">
         <input type="checkbox" class="form-check-input" id="warningPost" v-model="message.warningPost" />
-        <label class="form-check-label" for="warningPost">Varnings inlägg</label>
+        <label class="form-check-label" for="warningPost">Varningsinlägg</label>
       </div>
       <button type="submit" class="btn btn-dark">
         Skicka meddelandet
@@ -66,6 +66,12 @@ export default {
     user() {
       return this.$store.state.loggedInUser;
     },
+    isAdmin(){
+      return this.user? this.user.roles.includes('ADMIN'): false
+    },
+    isUserAndThreadIsOpen(){
+      return (this.user && this.thread.locked === false)
+    }
   },
   data() {
     return {
@@ -102,6 +108,7 @@ export default {
       forumId: this.$route.params.forum_id,
       threadId: this.$route.params.thread_id,
     });
+    console.log(this.user, "USER I THREAD")
     // }
   },
 };
