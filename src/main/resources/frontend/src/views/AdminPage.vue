@@ -40,16 +40,6 @@ export default {
     }
   },
   methods: {
-    // async searchUser() {
-    //   let users = await fetch(`/api/v1/users?username=${this.username}`, {
-    //     method: "GET",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(users),
-    //   });
-    //   users = await users.json();
-
-    //   console.log(users, "users");
-    // },
     searchUsers(){
         this.$store.dispatch("searchUsers", this.username)
 

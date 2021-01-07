@@ -50,7 +50,6 @@ export default new Vuex.Store({
         `/api/v1/forums/${obj.forumId}/threads/${obj.threadId}`
       );
       const thread = await rawThread.json();
-      console.log(thread, "FETCHEDTHREAD");
       commit("setThread", thread);
     },
     async whoami({ commit }) {

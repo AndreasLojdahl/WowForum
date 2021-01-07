@@ -60,7 +60,6 @@ export default {
   },
   computed: {
     thread() {
-      console.log(this.$store.state.thread, "Thread Computed");
       return this.$store.state.thread;
     },
     user() {
@@ -108,7 +107,6 @@ export default {
       forumId: this.$route.params.forum_id,
       threadId: this.$route.params.thread_id,
     });
-    console.log(this.user, "USER I THREAD")
     // }
   },
 };

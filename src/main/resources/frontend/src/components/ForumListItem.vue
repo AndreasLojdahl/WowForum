@@ -6,7 +6,7 @@
       </div>
 
       <div class="col align-middle">
-        <div v-if="threadObj.threadOwner" class="item-font">
+        <div v-if="threadObj.threadOwner? threadObj.threadOwner: false" class="item-font">
           {{ threadObj.threadOwner.username }}
         </div>
       </div>

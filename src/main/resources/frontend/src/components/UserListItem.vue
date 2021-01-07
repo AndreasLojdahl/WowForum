@@ -33,7 +33,7 @@
 
       <div class="row d-flex justify-content-end ">
 
-      <select  v-if="user.roles.includes('MODERATOR') " class="custom-select col" id="selectedForum">
+      <select  v-if="user.roles.includes('MODERATOR') " multiple class="custom-select col" id="selectedForum">
         <option selected>Moderator för...</option>
         <option value="forum" v-for="forum in this.forums" :key="forum.forum_id">{{forum.name}} forum</option>
       </select>

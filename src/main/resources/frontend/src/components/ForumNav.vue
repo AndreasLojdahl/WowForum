@@ -79,7 +79,6 @@ export default {
   },
   methods: {
     goToForum(forum) {
-      console.log(forum);
       if (this.$router.currentRoute.path !== "/forum/" + forum.forum_id) {
         this.$router.push({ path: `/forum/${forum.forum_id}` });
       }

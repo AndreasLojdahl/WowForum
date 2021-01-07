@@ -53,7 +53,7 @@ export default {
         body: credentials,
       });
       if (response.url.includes("error")) {
-        console.log(response, "RESPONSE")
+        console.log(response, "LOGIN RESPONSE")
         console.log("ERROR: Login failed.");
       } else {
         console.log("SUCCESS: Login succeeded");

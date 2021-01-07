@@ -36,7 +36,7 @@ public class Message {
 //    private Thread thread;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User messageOwner;
 }

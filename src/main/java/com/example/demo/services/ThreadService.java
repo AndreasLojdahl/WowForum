@@ -38,10 +38,10 @@ public class ThreadService {
     }
 
     public Thread getThreadById(long forum_id, long thread_id){
-        if(forumRepo.existsById(forum_id) && threadRepo.existsById(thread_id)){
-            return threadRepo.findById(thread_id).get();
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND,"the thread with that id doesn't exist");
+
+            return threadRepo.findById(thread_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Couldn't find the thread with that id"));
+
+
     }
 
     public Thread addThread(ThreadDto thread, long forum_id){

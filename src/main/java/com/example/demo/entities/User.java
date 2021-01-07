@@ -1,14 +1,15 @@
 package com.example.demo.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
+//@EqualsAndHashCode(exclude = {"messages", "threads"})
 @Entity()
 @Table(name = "users")
 @Data
@@ -40,4 +41,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "messageOwner")
+//    @JsonIgnore
+//    private Set<Message> messages;
+//
+//
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "threadOwner")
+//    @JsonIgnore
+//    private Set<Thread> threads;
 }

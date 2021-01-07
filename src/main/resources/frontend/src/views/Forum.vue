@@ -67,6 +67,7 @@ export default {
       return this.$route.params.forum_id;
     },
     forum() {
+      console.log(this.$store.state.forum, "FORUM")
       return this.$store.state.forum;
     },
     user(){
@@ -89,7 +90,6 @@ export default {
         }
       );
       newThread = await newThread.json();
-      console.log(newThread, "NEWTHREAD");
       this.$store.commit("addNewThread", newThread)
       this.thread.title = null
       this.thread.initialMessage = null
