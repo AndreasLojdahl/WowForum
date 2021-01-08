@@ -57,6 +57,7 @@ export default {
         console.log("ERROR: Login failed.");
       } else {
         console.log("SUCCESS: Login succeeded");
+        console.log(response, "LOGIN RESPONSE")
         await this.$store.dispatch("whoami");
         this.$router.push({path: "/"});
       }

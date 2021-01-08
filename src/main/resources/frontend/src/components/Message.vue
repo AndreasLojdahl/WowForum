@@ -14,6 +14,7 @@
       </div>
       <div class="col d-flex justify-content-end align-middle">
         <svg
+          v-if="isAdmin"
           xmlns="http://www.w3.org/2000/svg"
           width="30"
           height="30"
@@ -43,6 +44,12 @@ export default {
     getDate() {
       return new Date(this.message.timestamp).toLocaleString("sv-SE");
     },
+    User(){
+      return this.$store.state.loggedInUser
+    },
+    isAdmin(){
+      return this.user? this.user.roles.includes('ADMIN'): false;
+    }
   },
   methods: {
     async deleteMessage() {

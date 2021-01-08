@@ -67,7 +67,6 @@ export default {
       return this.$route.params.forum_id;
     },
     forum() {
-      console.log(this.$store.state.forum, "FORUM")
       return this.$store.state.forum;
     },
     user(){
@@ -100,8 +99,8 @@ export default {
       this.$store.dispatch("fetchForum", this.paramId);
     },
   },
-  async created() {
-    await this.$store.dispatch("fetchForum", this.paramId);
+  created() {
+    this.$store.dispatch("fetchForum", this.paramId);
   },
 };
 </script>

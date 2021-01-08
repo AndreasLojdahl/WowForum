@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.ServerEndpoint;
 import java.net.URI;
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class ForumController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Forum> addForum(@RequestBody Forum forum){
         var newForum = forumService.addForum(forum);
         var uri = URI.create("api/v1/forums" + newForum.getForum_id());
@@ -39,12 +42,14 @@ public class ForumController {
     }
 
     @PutMapping
+    @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateForum(@Validated @RequestBody Forum forum, @PathVariable long id){
         forumService.updateForum(forum, id);
     }
 
     @DeleteMapping
+    @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteForum(@PathVariable long id){
         forumService.deleteForum(id);

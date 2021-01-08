@@ -69,6 +69,8 @@ public class UserService {
 
         threadRepo.setUserIdToNull(user_id);
         messageRepo.setUserIdToNull(user_id);
+
+
 //        user.getThreads().forEach(thread -> thread.setThreadOwner(null));
 //        user.getMessages().forEach(message -> message.setMessageOwner(null));
 //        userRepo.save(user);

@@ -20,6 +20,7 @@ public class MessageController {
     MessageService messageService;
 
     @PostMapping("/{thread_id}")
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
     public ResponseEntity<Message> addThread(@PathVariable long thread_id, @RequestBody MessageDto message ){
         var newMessage = messageService.addMessage(message, thread_id);
         return ResponseEntity.ok(newMessage);
