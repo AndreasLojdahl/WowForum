@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,21 +24,14 @@ public class Message {
     private long thread_id;
     private boolean warningPost;
 
-    public Message(String message, boolean warningPost, long thread_id, User user){
-        this.messageContent = message;
-        this.warningPost = warningPost;
+    public Message(String message, long thread_id, User user){
+        this.messageContent = message;;
         this.thread_id = thread_id;
-        //this.thread = thread;
         this.timestamp = new Date().getTime();
         this.messageOwner = user;
-
     }
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-//    private Thread thread;
-
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User messageOwner;
 }

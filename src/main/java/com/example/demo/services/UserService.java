@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -52,6 +53,7 @@ public class UserService {
         if(currentUser == null || !currentUser.getRoles().contains("ADMIN") || newUser.getRoles() == null || newUser.getRoles().isBlank()){
             newUser.setRoles("USER");
         }
+        //newUser.setForumsToModerate(Set.of());
         return userRepo.save(newUser);
     }
 
@@ -63,17 +65,27 @@ public class UserService {
         return userRepo.findAll();
     }
 
+    public void updateUserRoles(User user, long user_id){
+        if(!userRepo.existsById(user_id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't find user");
+        }
+        user.setUser_id(user_id);
+        userRepo.save(user);
+    }
+
     public void deleteUser(long user_id){
 
-        var user = userRepo.findById(user_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"the user with that id doesn't exist") );
+        var username = myUserDetailsService.getCurrentUser();
+        var loggedInUser = userRepo.findByUsername(username);
+
+        var user = userRepo.findById(user_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"the user with that id doesn't exist"));
+
+        if(loggedInUser == user){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"You can't delete yourself");
+        }
 
         threadRepo.setUserIdToNull(user_id);
         messageRepo.setUserIdToNull(user_id);
-
-
-//        user.getThreads().forEach(thread -> thread.setThreadOwner(null));
-//        user.getMessages().forEach(message -> message.setMessageOwner(null));
-//        userRepo.save(user);
         userRepo.deleteById(user_id);
     }
 }

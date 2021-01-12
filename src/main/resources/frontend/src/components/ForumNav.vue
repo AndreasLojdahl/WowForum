@@ -1,13 +1,13 @@
 <template>
   <div class="">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="navbar-brand" @click="goToHome()">Wow Forum</div>
+      <div class="navbar-brand" @click="goTo('/')">Wow Forum</div>
       <div class=" navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <div v-if="user? user.roles.includes('ADMIN'): false" class="nav-item nav-link"  @click="goToAdmin()">
+          <div v-if="user? user.roles.includes('ADMIN'): false" class="nav-item nav-link"  @click="goTo('/admin')">
           Admin sida
         </div>
-          <div v-if="!user" class="nav-item nav-link" @click="goToLogIn()">
+          <div v-if="!user" class="nav-item nav-link" @click="goTo('/login')">
             Logga in
           </div>
           <div v-if="user" class="nav-item nav-link" @click="logOut()">
@@ -24,7 +24,7 @@
           :key="forum.id"
           :class="forum.name"
           class="nav-item nav-link col text-center forums-font"
-          @click="goToForum(forum)"
+          @click="goToForum(forum.forum_id)"
         >
           {{ forum.name }}
         </div>
@@ -78,19 +78,13 @@ export default {
     this.$store.dispatch("fetchAllForums");
   },
   methods: {
-    goToForum(forum) {
-      if (this.$router.currentRoute.path !== "/forum/" + forum.forum_id) {
-        this.$router.push({ path: `/forum/${forum.forum_id}` });
+    goTo(route){
+      if(this.$route.path != route){
+        this.$router.push({path: route})
       }
     },
-    goToLogIn() {
-      this.$router.push({ path: "/login" });
-    },
-    goToHome() {
-      this.$router.push({ path: "/" });
-    },
-    goToAdmin() {
-      this.$router.push({ path: "/admin" });
+    goToForum(id) {
+     this.goTo(`/forum/${id}`)
     },
     async logOut() {
       fetch("/auth/logout", {

@@ -34,7 +34,7 @@
     <ForumListItem
       
       v-for="thread in forum.threads"
-      :key="thread.id"
+      :key="thread.thread_id"
       :threadObj="thread"
       :forum_id="forum.forum_id"
     />

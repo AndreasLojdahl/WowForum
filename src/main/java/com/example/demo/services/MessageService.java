@@ -2,7 +2,9 @@ package com.example.demo.services;
 
 import com.example.demo.Dtos.MessageDto;
 import com.example.demo.entities.Message;
+import com.example.demo.repositories.ForumRepo;
 import com.example.demo.repositories.MessageRepo;
+import com.example.demo.repositories.ThreadRepo;
 import com.example.demo.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,8 @@ public class MessageService {
     MyUserDetailsService myUserDetailsService;
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    ThreadRepo threadRepo;
 
     public Message addMessage(MessageDto message, long thread_id){
 
@@ -27,9 +31,21 @@ public class MessageService {
         if(user == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
         }
-        //var thread = threadRepo.findById(thread_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Couldn't find thread"));
+        //var forum = forumRepo.findById(thread_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't find the forum for that thread"));
 
-        var newMessage = new Message(message.getMessageContent(),message.isWarningPost(), thread_id, user);
+        var thread = threadRepo.findById(thread_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't find the thread"));
+
+        if(thread.isLocked()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The thread is locked");
+        }
+
+        var newMessage = new Message(message.getMessageContent(), thread_id, user);
+
+            if(user.getRoles().contains("ADMIN") || user.getForumsToModerate().contains(thread.getForum_id())){
+                newMessage.setWarningPost(message.isWarningPost());
+            }else {
+                newMessage.setWarningPost(false);
+            }
         return messageRepo.save(newMessage);
     }
 

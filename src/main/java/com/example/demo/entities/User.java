@@ -1,21 +1,26 @@
 package com.example.demo.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
-
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 //@EqualsAndHashCode(exclude = {"messages", "threads"})
+//@Data
 @Entity()
 @Table(name = "users")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 9006661433789679964L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,6 +35,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.forumsToModerate = Set.of();
     }
 
     @JsonIgnore
@@ -42,7 +48,17 @@ public class User {
         this.password = password;
     }
 
+    @ManyToMany(mappedBy = "moderators", fetch = FetchType.LAZY )
+    private Set<Forum> forumsToModerate;
 
+    public void removeForum(Forum forum){
+        this.forumsToModerate.remove(forum);
+        forum.getModerators().remove(this);
+    }
+
+    public List<Long> getForumsToModerate(){
+        return forumsToModerate.stream().map(forum -> forum.getForum_id()).collect(Collectors.toList());
+    }
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "messageOwner")
 //    @JsonIgnore

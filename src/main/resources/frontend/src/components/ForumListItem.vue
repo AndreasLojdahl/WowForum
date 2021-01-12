@@ -7,7 +7,7 @@
 
       <div class="col align-middle">
         <div v-if="threadObj.threadOwner? threadObj.threadOwner: false" class="item-font">
-          {{ threadObj.threadOwner.username }}
+          skapad av: <span>{{ threadObj.threadOwner.username }}</span>
         </div>
       </div>
 
@@ -17,11 +17,11 @@
 
       <div
         class="col d-flex justify-content-end "
-        v-if="user ? user.roles.includes('ADMIN') : false"
+        
       >
-        <!-- <button type="button" class="btn btn-dark" @click.stop="deleteThread()">Ta bort</button>
-        <button type="button" class="btn btn-dark" @click.stop="lockThread()">lås</button> -->
+   
         <svg
+        v-if="isAdmin"
           xmlns="http://www.w3.org/2000/svg"
           width="30"
           height="30"
@@ -41,6 +41,7 @@
         </svg>
 
         <svg
+        v-if="isAdmin || isModerator"
           xmlns="http://www.w3.org/2000/svg"
           width="30"
           height="30"
@@ -76,6 +77,12 @@ export default {
     },
     thread(){
       return this.threadObj
+    },
+    isModerator(){
+      return this.user?.forumsToModerate.includes(this.forum_id)
+    },
+    isAdmin(){
+      return this.user?.roles.includes('ADMIN')
     }
   },
   methods: {
@@ -84,6 +91,7 @@ export default {
       this.$router.push({
         path: `${this.forum_id}/thread/${this.threadObj.thread_id}`,
       });
+      // v-if="user ? user.roles.includes('ADMIN'): false"
     },
     async deleteThread() {
       const response = await fetch(
@@ -97,12 +105,6 @@ export default {
       }
     },
     async lockThread() {
-      console.log("THread Obj", this.threadObj);
-      console.log(
-        "LOCKED",
-        this.threadObj.locked + " - !LOCKED",
-        !this.threadObj.locked
-      );
       let thread = {
         title: this.threadObj.title,
         forum_id: this.threadObj.forum_id,
@@ -124,13 +126,11 @@ export default {
         console.log("dispatch")
         this.$store.dispatch("fetchForum", this.forum_id);
       }
-
-
     },
   },
-  // created(){
-  //   console.log(this.threadObj, "THREADOBJ")
-  // }
+  created(){
+    console.log(this.threadObj, "THREADOBJ", this.user, "USER in forumlist")
+  }
 };
 </script>
 <style scoped>

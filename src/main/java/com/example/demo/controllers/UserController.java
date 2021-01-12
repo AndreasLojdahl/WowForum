@@ -34,18 +34,18 @@ public class UserController {
         return ResponseEntity.created(uri).body(newUser);
     }
 
+    @PutMapping("/{user_id}")
+    @Secured("ROLE_ADMIN")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void User(@RequestBody User user){
+
+    }
+
     @DeleteMapping("/{user_id}")
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteThread(@PathVariable long user_id){
+    public void deleteUser(@PathVariable long user_id){
         userService.deleteUser(user_id);
     }
 
-
-//    @GetMapping
-//    @Secured("ROLE_ADMIN")
-//    public ResponseEntity<List<User>> findUsers(@RequestParam(required = false) String username) {
-//        var users = userService.searchUser(username);
-//        return ResponseEntity.ok(users);
-//    }
 }

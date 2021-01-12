@@ -35,6 +35,7 @@ export default {
         username: e.target.username.value,
         password: e.target.password.value,
       };
+      console.log(loginCredentials, "LoginCREDENTIALS")
       this.attemptLogIn(loginCredentials);
     },
 
@@ -44,6 +45,9 @@ export default {
         encodeURIComponent(userToLogin.username) +
         "&password=" +
         encodeURIComponent(userToLogin.password);
+
+  
+
       let response = await fetch("/auth/login", {
         method: "POST",
         headers: {

@@ -41,18 +41,25 @@ public class ForumController {
         return ResponseEntity.created(uri).body(newForum);
     }
 
-    @PutMapping
+    @PutMapping("/{forum_id}/moderators/{user_id}")
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateForum(@Validated @RequestBody Forum forum, @PathVariable long id){
-        forumService.updateForum(forum, id);
+    public void promoteForumModerator(@PathVariable long forum_id, @PathVariable long user_id){
+        forumService.promoteModerator(forum_id, user_id);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{forum_id}/moderators/{user_id}")
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteForum(@PathVariable long id){
-        forumService.deleteForum(id);
+    public void demoteForumModerator(@PathVariable long forum_id, @PathVariable long user_id){
+        forumService.demoteModerator(forum_id, user_id);
+    }
+
+    @DeleteMapping("/{forum_id}")
+    @Secured("ROLE_ADMIN")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteForum(@PathVariable long forum_id){
+        forumService.deleteForum(forum_id);
     }
 
 

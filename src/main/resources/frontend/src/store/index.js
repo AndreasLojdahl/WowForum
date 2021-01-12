@@ -9,7 +9,8 @@ export default new Vuex.Store({
     forum: null,
     thread: null,
     loggedInUser: null,
-    users: null
+    users: null,
+    searchedUsername: null
   },
   mutations: {
     setForums(state, data) {
@@ -30,9 +31,12 @@ export default new Vuex.Store({
     setloggedInUser(state, data) {
       state.loggedInUser = data;
     },
-    setUsers(state, data){
-      state.users = data
-    }
+    setUsers(state, data) {
+      state.users = data;
+    },
+    setSearchedUsername(state, data) {
+      state.searchedUsername = data;
+    },
   },
   actions: {
     async fetchAllForums({ commit }) {
@@ -57,19 +61,19 @@ export default new Vuex.Store({
       try {
         user = await user.json();
         commit("setloggedInUser", user);
-        console.log(this.state.loggedInUser, " USSSEEEERR");
       } catch {
         console.log("Not authenticated");
       }
     },
-    async searchUsers({commit}, username) {
-      let users = await fetch(`/api/v1/users?username=${username}`, {
+    async searchUsers({ commit }, searchedUsername) {
+      commit("setSearchedUsername", searchedUsername)
+      let users = await fetch(`/api/v1/users?username=${searchedUsername}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(users),
       });
       users = await users.json();
-      commit("setUsers", users)
+      commit("setUsers", users);
     },
   },
   modules: {},

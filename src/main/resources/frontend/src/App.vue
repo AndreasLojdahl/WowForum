@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" class="app-bg">
     <ForumNav/>
-    <router-view />
+    <router-view/>
   </div>
 </template>
 <script>
@@ -15,5 +15,8 @@ export default {
  };
 </script>
 <style>
-
+.app-bg{
+  background-color: rgb(233, 233, 233);
+  min-height: 100vh;
+}
 </style>

@@ -32,12 +32,12 @@ public class Thread {
         this.locked = false;
     }
 
-    @OneToMany(/*mappedBy = "thread"*/cascade=CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
     @OrderBy("timestamp ASC")
     @JoinColumn(name = "thread_id")
     private Set<Message> messages;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User threadOwner;
 

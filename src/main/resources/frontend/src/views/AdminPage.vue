@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div v-if="user? user.roles.includes('ADMIN'): false" class="container">
     <h1 class="text-center mt-5">Admin sida</h1>
     <form @submit.prevent="searchUsers()" class="mb-5">
       <div class="form-group">
@@ -9,7 +9,7 @@
           type="text"
           class="form-control"
           id="username"
-          v-model="username"
+          v-model="searchedUsername"
         />
       </div>
       <button type="submit" class="btn btn-dark">
@@ -28,7 +28,7 @@ export default {
   name: "AdminPage",
   data() {
     return {
-      username: "",
+      searchedUsername: "",
     };
   },
   computed: {
@@ -41,9 +41,8 @@ export default {
   },
   methods: {
     searchUsers(){
-        this.$store.dispatch("searchUsers", this.username)
-
-        console.log(this.users, "USERS IN ADMIN PAGE")
+        this.$store.dispatch("searchUsers", this.searchedUsername)
+        this.searchedUsername = "";
     }
   },
   async created() {

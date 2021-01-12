@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col">
         <div v-if="message.messageOwner? message.messageOwner: false" class="msg-font mb-2">
-          {{ message.messageOwner.username }}: {{ message.message_id }}
+          {{ message.messageOwner.username }}:
         </div>
 
         <h5 :class="{ isWarning: message.warningPost }">

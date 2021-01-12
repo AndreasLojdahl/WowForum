@@ -38,7 +38,7 @@ public class ThreadController {
     }
 
     @PutMapping("/threads/{thread_id}")
-    @Secured("ROLE_ADMIN")
+    @Secured({"ROLE_ADMIN","ROLE_MODERATOR"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateThread(@RequestBody Thread thread, @PathVariable long thread_id){
         threadService.updateThread(thread, thread_id);

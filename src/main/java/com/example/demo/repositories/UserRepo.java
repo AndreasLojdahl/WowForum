@@ -14,9 +14,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     Boolean existsByUsername(String username);
 
-    //@Query(value = "SELECT * FROM users WHERE username LIKE ?1", nativeQuery = true)
     List<User> findByUsernameContains(String username);
 
-//    @Query(value = "UPDATE user_id FROM threads")
-//    void setUserIdToNull(long user_id);
 }

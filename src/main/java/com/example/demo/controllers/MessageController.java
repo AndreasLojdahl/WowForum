@@ -20,8 +20,7 @@ public class MessageController {
     MessageService messageService;
 
     @PostMapping("/{thread_id}")
-    @Secured({"ROLE_USER","ROLE_ADMIN"})
-    public ResponseEntity<Message> addThread(@PathVariable long thread_id, @RequestBody MessageDto message ){
+    public ResponseEntity<Message> addMessage(@PathVariable long thread_id, @RequestBody MessageDto message ){
         var newMessage = messageService.addMessage(message, thread_id);
         return ResponseEntity.ok(newMessage);
     }
@@ -29,7 +28,7 @@ public class MessageController {
     @DeleteMapping("/{message_id}")
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteThread(@PathVariable long message_id){
+    public void deleteMessage(@PathVariable long message_id){
         messageService.deleteMessage(message_id);
     }
 }
