@@ -2,7 +2,6 @@ package com.example.demo.services;
 
 import com.example.demo.Dtos.MessageDto;
 import com.example.demo.entities.Message;
-import com.example.demo.repositories.ForumRepo;
 import com.example.demo.repositories.MessageRepo;
 import com.example.demo.repositories.ThreadRepo;
 import com.example.demo.repositories.UserRepo;
@@ -31,7 +30,6 @@ public class MessageService {
         if(user == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
         }
-        //var forum = forumRepo.findById(thread_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't find the forum for that thread"));
 
         var thread = threadRepo.findById(thread_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't find the thread"));
 

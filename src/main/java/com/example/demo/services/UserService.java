@@ -37,10 +37,6 @@ public class UserService {
         return userRepo.findByUsername(username);
     }
 
-//    public List<User> searchUser(String username){
-//        return userRepo.searchUser(username);
-//    }
-
     public User registerUser(UserDto user) {
         if (userRepo.existsByUsername(user.getUsername())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
@@ -53,7 +49,6 @@ public class UserService {
         if(currentUser == null || !currentUser.getRoles().contains("ADMIN") || newUser.getRoles() == null || newUser.getRoles().isBlank()){
             newUser.setRoles("USER");
         }
-        //newUser.setForumsToModerate(Set.of());
         return userRepo.save(newUser);
     }
 
@@ -63,14 +58,6 @@ public class UserService {
             return userRepo.findByUsernameContains(username);
         }
         return userRepo.findAll();
-    }
-
-    public void updateUserRoles(User user, long user_id){
-        if(!userRepo.existsById(user_id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't find user");
-        }
-        user.setUser_id(user_id);
-        userRepo.save(user);
     }
 
     public void deleteUser(long user_id){

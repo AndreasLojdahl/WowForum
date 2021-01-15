@@ -15,7 +15,7 @@
                 type="button"
                 @click="promoteModerator(selectedPromote)"
               >
-                Befodra
+                Lägg till
               </button>
             </div>
             <select
@@ -41,7 +41,7 @@
                 type="button"
                 @click="demoteModerator(selectedDemote)"
               >
-                Degradera
+                Ta bort
               </button>
             </div>
             <select

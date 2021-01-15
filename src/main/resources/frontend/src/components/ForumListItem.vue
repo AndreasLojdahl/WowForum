@@ -128,9 +128,6 @@ export default {
       }
     },
   },
-  created(){
-    console.log(this.threadObj, "THREADOBJ", this.user, "USER in forumlist")
-  }
 };
 </script>
 <style scoped>

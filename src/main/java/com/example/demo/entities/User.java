@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//@EqualsAndHashCode(exclude = {"messages", "threads"})
-//@Data
 @Entity()
 @Table(name = "users")
 @Getter

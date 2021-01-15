@@ -5,12 +5,7 @@ import com.example.demo.repositories.ForumRepo;
 import com.example.demo.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
@@ -57,7 +52,6 @@ public class ForumService {
             user.setRoles(user.getRoles() + ",MODERATOR");
         }
         forum.getModerators().add(user);
-        //forum.setForum_id(forum_id);
         forumRepo.save(forum);
 
     }
@@ -74,7 +68,6 @@ public class ForumService {
         if(user.getForumsToModerate().size() == 0){
             user.setRoles(user.getRoles().replace(",MODERATOR",""));
         }
-        //user.setUser_id(user_id);
         userRepo.save(user);
     }
 
