@@ -47,7 +47,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:8080").allowedMethods("DELETE","GET","PUT","POST");
+                registry.addMapping("/**").allowedOrigins("http://localhost:8080", "https://wow-sve.hakkerbojz.tech").allowedMethods("DELETE","GET","PUT","POST");
             }
         };
     }
