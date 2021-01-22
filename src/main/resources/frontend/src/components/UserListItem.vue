@@ -131,7 +131,7 @@
 
           <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-6 col-xl-6">
             <div class=" text-left font-bold col-12 mb-3">
-              Lägg till för att moderera forum
+              Ta bort för att omoderera forum
             </div>
             <div class="input-group-prepend">
               <button
