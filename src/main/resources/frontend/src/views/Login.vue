@@ -23,7 +23,6 @@
   </div>
 </template>
 <script>
-
 export default {
   name: "Login",
   methods: {
@@ -35,7 +34,6 @@ export default {
         username: e.target.username.value,
         password: e.target.password.value,
       };
-      console.log(loginCredentials, "LoginCREDENTIALS")
       this.attemptLogIn(loginCredentials);
     },
 
@@ -46,8 +44,6 @@ export default {
         "&password=" +
         encodeURIComponent(userToLogin.password);
 
-  
-
       let response = await fetch("/auth/login", {
         method: "POST",
         headers: {
@@ -57,13 +53,13 @@ export default {
         body: credentials,
       });
       if (response.url.includes("error")) {
-        console.log(response, "LOGIN RESPONSE")
+        console.log(response, "LOGIN RESPONSE");
         console.log("ERROR: Login failed.");
       } else {
         console.log("SUCCESS: Login succeeded");
-        console.log(response, "LOGIN RESPONSE")
+        console.log(response, "LOGIN RESPONSE");
         await this.$store.dispatch("whoami");
-        this.$router.push({path: "/"});
+        this.$router.push({ path: "/" });
       }
     },
   },

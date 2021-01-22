@@ -33,13 +33,13 @@ public class ForumController {
         return ResponseEntity.ok(forum);
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("ROLE_ADMIN")
-    public ResponseEntity<Forum> addForum(@RequestBody Forum forum){
-        var newForum = forumService.addForum(forum);
-        var uri = URI.create("api/v1/forums" + newForum.getForum_id());
-        return ResponseEntity.created(uri).body(newForum);
-    }
+//    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//    @Secured("ROLE_ADMIN")
+//    public ResponseEntity<Forum> addForum(@RequestBody Forum forum){
+//        var newForum = forumService.addForum(forum);
+//        var uri = URI.create("api/v1/forums" + newForum.getForum_id());
+//        return ResponseEntity.created(uri).body(newForum);
+//    }
 
     @PutMapping("/{forum_id}/moderators/{user_id}")
     @Secured("ROLE_ADMIN")

@@ -8,6 +8,7 @@ import com.example.demo.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class MessageService {
     @Autowired
     ThreadRepo threadRepo;
 
-    public Message addMessage(MessageDto message, long thread_id){
+    public Message addMessage(@Validated MessageDto message, long thread_id){
 
         var username = myUserDetailsService.getCurrentUser();
         var user = userRepo.findByUsername(username);

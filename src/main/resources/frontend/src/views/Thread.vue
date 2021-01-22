@@ -20,7 +20,7 @@
     </div>
 
     <form
-      v-if="isAdmin || isUserAndThreadIsOpen"
+      v-if="isUserAndThreadIsOpen"
       @submit.prevent="createMessage"
       class="mb-4"
     >
@@ -34,8 +34,13 @@
           v-model="message.messageContent"
         />
       </div>
-      <div v-if="user? user.roles.includes('ADMIN'): false" class="form-check mb-3">
-        <input type="checkbox" class="form-check-input" id="warningPost" v-model="message.warningPost" />
+      <div v-if="isAdmin" class="form-check mb-3">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="warningPost"
+          v-model="message.warningPost"
+        />
         <label class="form-check-label" for="warningPost">Varningsinlägg</label>
       </div>
       <button type="submit" class="btn btn-dark">
@@ -47,7 +52,6 @@
       v-for="message in thread.messages"
       :key="message.message_id"
       :message="message"
-      class="border-bottom border-dark"
     />
   </div>
 </template>
@@ -65,18 +69,18 @@ export default {
     user() {
       return this.$store.state.loggedInUser;
     },
-    isAdmin(){
-      return this.user? this.user.roles.includes('ADMIN'): false
+    isAdmin() {
+      return this.user ? this.user.roles.includes("ADMIN") : false;
     },
-    isUserAndThreadIsOpen(){
-      return (this.user && this.thread.locked === false)
-    }
+    isUserAndThreadIsOpen() {
+      return this.user && this.thread.locked === false;
+    },
   },
   data() {
     return {
       message: {
         messageContent: null,
-        warningPost: null
+        warningPost: null,
       },
     };
   },
@@ -84,7 +88,7 @@ export default {
     async createMessage() {
       let messageToCreate = {
         messageContent: this.message.messageContent,
-        warningPost: this.message.warningPost
+        warningPost: this.message.warningPost,
       };
 
       let newMessage = await fetch(
@@ -102,18 +106,15 @@ export default {
     },
   },
   async created() {
-    // if (!this.thread) {
     await this.$store.dispatch("fetchThread", {
       forumId: this.$route.params.forum_id,
       threadId: this.$route.params.thread_id,
     });
-    // }
   },
-  
 };
 </script>
 <style scoped>
-.pad-bm{
+.pad-bm {
   padding-bottom: 7rem;
 }
 </style>

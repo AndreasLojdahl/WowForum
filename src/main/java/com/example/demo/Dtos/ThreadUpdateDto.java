@@ -5,14 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ThreadDto {
+public class ThreadUpdateDto {
 
-    @NotBlank
-    private String title;
-    @NotBlank
-    private String initialMessage;
+    @NotNull
+    private boolean locked;
 }

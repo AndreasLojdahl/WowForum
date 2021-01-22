@@ -29,7 +29,6 @@ export default {
         username: e.target.username.value,
         email: e.target.email.value,
         password: e.target.password.value,
-        //roles: "USER",
       };
       await fetch("/api/v1/users", {
         method: "POST",
@@ -40,9 +39,6 @@ export default {
       })
         .then((response) => {
           if (response.ok) return response.json();
-          // else if (response.status == 400) {
-          //   this.errorMessage = `${this.user.username} already exists`;
-          // }
         })
         .then((data) => {
           if (data) {

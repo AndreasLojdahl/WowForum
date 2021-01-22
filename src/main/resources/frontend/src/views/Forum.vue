@@ -1,7 +1,7 @@
 <template>
   <div class="container" v-if="forum">
     <div class="row justify-content-center mt-5">
-      <h1  class="forum-header">{{ forum.name }}</h1>
+      <h1 class="forum-header">{{ forum.name }}</h1>
     </div>
 
     <form v-if="user" @submit.prevent="createThread" class="mb-4">
@@ -30,17 +30,17 @@
       </button>
     </form>
     <div class="list-item-container">
+      <div class="text-center no-thread-text" v-if="!forum.threads.length">
+        - Inga trådar skapade -
+      </div>
 
-    <ForumListItem
-      
-      v-for="thread in forum.threads"
-      :key="thread.thread_id"
-      :threadObj="thread"
-      :forum_id="forum.forum_id"
-    />
-    
+      <ForumListItem
+        v-for="thread in forum.threads"
+        :key="thread.thread_id"
+        :threadObj="thread"
+        :forum_id="forum.forum_id"
+      />
     </div>
-
   </div>
 </template>
 
@@ -69,16 +69,16 @@ export default {
     forum() {
       return this.$store.state.forum;
     },
-    user(){
+    user() {
       return this.$store.state.loggedInUser;
-    }
+    },
   },
   methods: {
     async createThread() {
       let threadToCreate = {
         title: this.thread.title,
         initialMessage: this.thread.initialMessage,
-        user: this.user.user_id
+        user: this.user.user_id,
       };
       let newThread = await fetch(
         `/api/v1/forums/${this.forum.forum_id}/threads`,
@@ -89,9 +89,9 @@ export default {
         }
       );
       newThread = await newThread.json();
-      this.$store.commit("addNewThread", newThread)
-      this.thread.title = null
-      this.thread.initialMessage = null
+      this.$store.commit("addNewThread", newThread);
+      this.thread.title = null;
+      this.thread.initialMessage = null;
     },
   },
   watch: {
@@ -102,15 +102,18 @@ export default {
   created() {
     this.$store.dispatch("fetchForum", this.paramId);
   },
-  destroyed(){
-    this.$store.commit("setForum", null)
-  }
+  destroyed() {
+    this.$store.commit("setForum", null);
+  },
 };
 </script>
 <style scoped>
-.list-item-container{
+.list-item-container {
   margin-bottom: 5em;
 }
 
-
-</style>>
+.no-thread-text {
+  font-size: 2rem;
+  font-weight: bold;
+}</style
+>>

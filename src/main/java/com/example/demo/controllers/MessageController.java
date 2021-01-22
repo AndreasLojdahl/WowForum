@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -20,7 +21,7 @@ public class MessageController {
     MessageService messageService;
 
     @PostMapping("/{thread_id}")
-    public ResponseEntity<Message> addMessage(@PathVariable long thread_id, @RequestBody MessageDto message ){
+    public ResponseEntity<Message> addMessage(@PathVariable long thread_id,@Validated @RequestBody MessageDto message ){
         var newMessage = messageService.addMessage(message, thread_id);
         return ResponseEntity.ok(newMessage);
     }

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user? user.roles.includes('ADMIN'): false" class="container">
+  <div v-if="user ? user.roles.includes('ADMIN') : false" class="container">
     <h1 class="text-center mt-5">Admin sida</h1>
     <form @submit.prevent="searchUsers()" class="mb-5">
       <div class="form-group">
@@ -16,13 +16,17 @@
         Sök användare
       </button>
     </form>
-    <UserListItem @deletedUser="searchUsers()" v-for="user in this.users" :key="user.user_id" :user="user" class="mb-4 border-bottom border-dark"/>
-
+    <UserListItem
+      @deletedUser="searchUsers()"
+      v-for="user in this.users"
+      :key="user.user_id"
+      :user="user"
+      class="mb-4 border-bottom border-dark"
+    />
   </div>
 </template>
 <script>
-
-import UserListItem from '../components/UserListItem.vue';
+import UserListItem from "../components/UserListItem.vue";
 export default {
   components: { UserListItem },
   name: "AdminPage",
@@ -35,15 +39,15 @@ export default {
     user() {
       return this.$store.state.loggedInUser;
     },
-    users(){
-       return this.$store.state.users; 
-    }
+    users() {
+      return this.$store.state.users;
+    },
   },
   methods: {
-    searchUsers(){
-        this.$store.dispatch("searchUsers", this.searchedUsername)
-        this.searchedUsername = "";
-    }
+    searchUsers() {
+      this.$store.dispatch("searchUsers", this.searchedUsername);
+      this.searchedUsername = "";
+    },
   },
   async created() {
     if (!this.user) {
@@ -53,10 +57,10 @@ export default {
       }
     }
   },
-  destroyed(){
-    this.$store.commit("setUsers", null)
-    console.log("DESTROY", this.$store.state.searchedUsername)
-  }
+  destroyed() {
+    this.$store.commit("setUsers", null);
+    console.log("DESTROY", this.$store.state.searchedUsername);
+  },
 };
 </script>
 <style scoped></style>

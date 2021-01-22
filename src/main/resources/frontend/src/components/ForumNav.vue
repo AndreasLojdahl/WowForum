@@ -1,19 +1,22 @@
 <template>
   <div class="">
-    <nav class="navbar navbar-expand-lg navbar-dark black">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="navbar-brand" @click="goTo('/')">Wow Forum</div>
       <div class=" navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <div v-if="user? user.roles.includes('ADMIN'): false" class="nav-item nav-link"  @click="goTo('/admin')">
-          Admin sida
-        </div>
+          <div
+            v-if="user ? user.roles.includes('ADMIN') : false"
+            class="nav-item nav-link"
+            @click="goTo('/admin')"
+          >
+            Admin sida
+          </div>
           <div v-if="!user" class="nav-item nav-link" @click="goTo('/login')">
             Logga in
           </div>
           <div v-if="user" class="nav-item nav-link" @click="logOut()">
             Logga ut {{ user.username }}
           </div>
-          <!-- <a class="nav-item nav-link disabled" href="#">Disabled</a> -->
         </div>
       </div>
     </nav>
@@ -30,37 +33,6 @@
         </div>
       </div>
     </nav>
-    <!-- <div class="wow-header bg-dark text-light font-weight-bold row">
-      <div class="col" @click="goToHome()">Wow Forum</div>
-      
-        <div v-if="user" class="col text-center log-in">
-          {{ user.username }}
-        </div>
-
-        <div v-if="user? user.roles.includes('ADMIN'): false" @click="goToAdmin()">
-          Admin sida
-        </div>
-
-        <div v-if="!user" class="col-4 text-center log-in" @click="goToLogIn()">
-          Logga in
-        </div>
-        <div v-if="user" class="col-4 text-center log-in" @click="logOut()">
-          Logga ut
-        </div>
-     
-    </div>
-    <div class="row ">
-      <div
-        id="nav"
-        v-for="forum in forums"
-        :key="forum.id"
-        :class="forum.name"
-        class="col cont"
-        @click="goToForum(forum)"
-      >
-        {{ forum.name }}
-      </div>
-    </div> -->
   </div>
 </template>
 <script>
@@ -78,13 +50,13 @@ export default {
     this.$store.dispatch("fetchAllForums");
   },
   methods: {
-    goTo(route){
-      if(this.$route.path != route){
-        this.$router.push({path: route})
+    goTo(route) {
+      if (this.$route.path != route) {
+        this.$router.push({ path: route });
       }
     },
     goToForum(id) {
-     this.goTo(`/forum/${id}`)
+      this.goTo(`/forum/${id}`);
     },
     async logOut() {
       fetch("/auth/logout", {
@@ -106,54 +78,51 @@ export default {
 </script>
 <style>
 .Warrior {
-  background-color:#C69B6D;
+  background-color: #c69b6d;
 }
 .Mage {
-  background-color:#3FC7EB;
+  background-color: #3fc7eb;
 }
 .Paladin {
-  background-color:#F48CBA;
+  background-color: #f48cba;
 }
 .Rogue {
-  background-color:#FFF468;
+  background-color: #fff468;
 }
 .Druid {
-  background-color: #FF7C0A;
+  background-color: #ff7c0a;
 }
 .Priest {
-  background-color:#FFFFFF;
+  background-color: #ffffff;
 }
 .Warlock {
-  background-color:#8788EE;
+  background-color: #8788ee;
 }
 .Hunter {
-  background-color:#AAD372;
+  background-color: #aad372;
 }
 .Shaman {
-  background-color:#0070DD;
+  background-color: #0070dd;
 }
 .DemonHunter {
-  background-color:#A330C9;
+  background-color: #a330c9;
 }
 .DeathKnight {
-  background-color:#C41E3A;
+  background-color: #c41e3a;
 }
 .Monk {
-  background-color:#00FF98;
+  background-color: #00ff98;
 }
 
 .nav-link:hover {
   cursor: pointer;
 }
 
-.black{
-  background-color: black;
+.nav-item:hover {
+  background-color: rgba(169, 169, 169, 0);
+  color: white;
 }
-
-.navbar-brand{
-  font-family: "LifeCraft";
-}
-.no-pad{
+.no-pad {
   padding-bottom: 0 !important;
   padding-top: 0 !important;
   /* padding: 0 !important; */

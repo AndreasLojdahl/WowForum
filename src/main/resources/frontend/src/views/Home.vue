@@ -1,25 +1,20 @@
 <template>
-<div class="container col">
+  <div class="container col">
     <h1 class="col home-title">Wow-Forum</h1>
-
-</div>
+  </div>
 </template>
 <script>
-export default {
-    
-}
+export default {};
 </script>
-<style  scoped>
-.home-title{
-    font-size: 6rem;
-    text-align: center;
-    color: white;
-    
+<style scoped>
+.home-title {
+  font-size: 6rem;
+  text-align: center;
+  color: black;
 }
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

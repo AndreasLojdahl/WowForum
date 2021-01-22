@@ -28,8 +28,6 @@ export default {
   /* background: url("./assets/images/backgroundsmoke.png"); */
 }
 
-.life-craft{
-  font-family: "LifeCraft";
-}
+
 
 </style>

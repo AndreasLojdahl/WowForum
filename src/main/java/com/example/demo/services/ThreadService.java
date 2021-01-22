@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.Dtos.ThreadDto;
+import com.example.demo.Dtos.ThreadUpdateDto;
 import com.example.demo.entities.Message;
 import com.example.demo.entities.Thread;
 import com.example.demo.repositories.ForumRepo;
@@ -10,6 +11,7 @@ import com.example.demo.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -35,11 +37,11 @@ public class ThreadService {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND,"the thread with that id doesn't exist");
     }
 
-    public Thread getThreadById(long forum_id, long thread_id){
+    public Thread getThreadById(long thread_id){
         return threadRepo.findById(thread_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Couldn't find the thread with that id"));
     }
 
-    public Thread addThread(ThreadDto thread, long forum_id){
+    public Thread addThread(@Validated ThreadDto thread, long forum_id){
 
 
         var username = myUserDetailsService.getCurrentUser();
@@ -58,7 +60,7 @@ public class ThreadService {
         return newThread;
     }
 
-    public void updateThread(Thread thread, long thread_id){
+    public void updateThread(ThreadUpdateDto thread, long thread_id){
 
         var username = myUserDetailsService.getCurrentUser();
         var user = userRepo.findByUsername(username);
@@ -67,17 +69,13 @@ public class ThreadService {
 
         if(!user.getRoles().contains("ADMIN")) {
 
-            var forum = forumRepo.findById(thread.getForum_id()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The forum to that thread doesn't exist"));
+            var forum = forumRepo.findById(threadFromDB.getForum_id()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The forum to that thread doesn't exist"));
 
             if (!user.getForumsToModerate().contains(forum.getForum_id())) {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "this user is not authorized to moderate this forum and thread");
             }
         }
-
-
-        threadFromDB.setForum_id(thread.getForum_id());
         threadFromDB.setLocked(thread.isLocked());
-        threadFromDB.setTitle(thread.getTitle());
         threadRepo.save(threadFromDB);
     }
 

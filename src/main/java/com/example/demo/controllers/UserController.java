@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> registerUser(@RequestBody @Validated UserDto user) {
+    public ResponseEntity<User> registerUser(@Validated @RequestBody UserDto user) {
         var newUser = userService.registerUser(user);
         var uri = URI.create("/api/v1/users/" + newUser.getUser_id());
         return ResponseEntity.created(uri).body(newUser);
