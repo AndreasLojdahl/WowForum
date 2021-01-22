@@ -1,6 +1,6 @@
 <template>
 <div class="container col">
-    <h1 class="col text-center mt-5">Välkommen till Wow Forum</h1>
+    <h1 class="col home-title">Wow-Forum</h1>
 
 </div>
 </template>
@@ -10,5 +10,16 @@ export default {
 }
 </script>
 <style  scoped>
+.home-title{
+    font-size: 6rem;
+    text-align: center;
+    color: white;
+    
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+}
 </style>

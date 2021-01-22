@@ -1,5 +1,5 @@
 <template>
-  <div class="container mb-5 " v-if="thread">
+  <div class="container pad-bm" v-if="thread">
     <div class="col text-center justify-content-center mt-5">
       <h1>{{ thread.title }}</h1>
       <div v-if="thread.locked === true" class="col mt-5">
@@ -109,6 +109,11 @@ export default {
     });
     // }
   },
+  
 };
 </script>
-<style scoped></style>
+<style scoped>
+.pad-bm{
+  padding-bottom: 7rem;
+}
+</style>

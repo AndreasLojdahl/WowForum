@@ -102,10 +102,15 @@ export default {
   created() {
     this.$store.dispatch("fetchForum", this.paramId);
   },
+  destroyed(){
+    this.$store.commit("setForum", null)
+  }
 };
 </script>
 <style scoped>
 .list-item-container{
   margin-bottom: 5em;
 }
+
+
 </style>>

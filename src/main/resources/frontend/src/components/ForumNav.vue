@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark black">
       <div class="navbar-brand" @click="goTo('/')">Wow Forum</div>
       <div class=" navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
@@ -17,13 +17,13 @@
         </div>
       </div>
     </nav>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class=" navbar-collapse d-flex justify-content-center row">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark no-pad">
+      <div class=" navbar-collapse d-flex justify-content-center row no-pad-bm">
         <div
           v-for="forum in forums"
           :key="forum.id"
           :class="forum.name"
-          class="nav-item nav-link col text-center forums-font"
+          class="nav-item nav-link col-xs-3 col-sm-3 col-md-2 col-lg-2 col-xl-1 text-center"
           @click="goToForum(forum.forum_id)"
         >
           {{ forum.name }}
@@ -106,34 +106,62 @@ export default {
 </script>
 <style>
 .Warrior {
-  background-color: #cebc98;
+  background-color:#C69B6D;
 }
 .Mage {
-  background-color: #75dfff;
+  background-color:#3FC7EB;
 }
 .Paladin {
-  background-color: #fc98ff;
+  background-color:#F48CBA;
 }
 .Rogue {
-  background-color: #f5c833;
+  background-color:#FFF468;
 }
 .Druid {
-  background-color: #f77f0f;
+  background-color: #FF7C0A;
 }
 .Priest {
-  background-color: #e6e2dc;
+  background-color:#FFFFFF;
 }
 .Warlock {
-  background-color: #a38aaa;
+  background-color:#8788EE;
+}
+.Hunter {
+  background-color:#AAD372;
+}
+.Shaman {
+  background-color:#0070DD;
+}
+.DemonHunter {
+  background-color:#A330C9;
+}
+.DeathKnight {
+  background-color:#C41E3A;
+}
+.Monk {
+  background-color:#00FF98;
 }
 
 .nav-link:hover {
   cursor: pointer;
 }
 
+.black{
+  background-color: black;
+}
+
+.navbar-brand{
+  font-family: "LifeCraft";
+}
+.no-pad{
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+  /* padding: 0 !important; */
+}
+
 .cont:hover {
   cursor: pointer;
-  background-color: rgb(47, 48, 58);
+  background-color: rgb(137, 139, 163);
   color: white;
 }
 </style>

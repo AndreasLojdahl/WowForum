@@ -15,8 +15,21 @@ export default {
  };
 </script>
 <style>
+/* @font-face{
+  font-family: "LifeCraft";
+  src: local("LifeCraft"), url('./assets/fonts/LifeCraft_Font.ttf') format("truetype");
+} */
 .app-bg{
-  background-color: rgb(233, 233, 233);
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(228, 228, 228);
+  /* background-color: rgb(233, 233, 233); */
   min-height: 100vh;
+  /* background: url("./assets/images/backgroundsmoke.png"); */
 }
+
+.life-craft{
+  font-family: "LifeCraft";
+}
+
 </style>
