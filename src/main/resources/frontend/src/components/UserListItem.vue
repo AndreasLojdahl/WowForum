@@ -207,7 +207,7 @@ export default {
       );
     },
     moderatorForums() {
-      return this.$store.state.forums.filter(
+      return this.forums.filter(
         (forum) => !this.user.forumsToModerate.includes(forum.forum_id)
       );
     },
