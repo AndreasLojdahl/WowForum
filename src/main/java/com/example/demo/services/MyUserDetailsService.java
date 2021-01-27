@@ -30,9 +30,9 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @PostConstruct
    private void createDefaultUsers() {
-        if (userRepo.findByUsername("test") == null) {
-           addUser("test", "test@test.com", "test1234", "USER");
-       }
+//        if (userRepo.findByUsername("test") == null) {
+//           addUser("test", "test@test.com", "test1234", "USER");
+//       }
    }
 
     @Override
