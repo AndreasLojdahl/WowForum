@@ -62,17 +62,16 @@ export default {
         // mode: "no-cors",
         body: credentials,
       });
-      if (response.url.includes("error")) {
-        this.error = "Något gick fel prova igen!"
-        this.password = null;
-        //console.log(response)
-        console.log("ERROR: Login failed.");
-      } else {
-        console.log("SUCCESS: Login succeeded");
-        //console.log(response, "LOGIN RESPONSE");
+      if(response.status === 200){
         await this.$store.dispatch("whoami");
         this.$router.push({ path: "/" });
+      }else if(response.status === 401){
+        this.error = "Användarnamnet och/eller lösenordet felaktigt"
+        
+      }else{
+        this.error = "Något gick fel prova igen!"
       }
+      this.password = null;
     },
   },
 };
