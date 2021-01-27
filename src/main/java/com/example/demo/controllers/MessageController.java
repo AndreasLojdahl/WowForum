@@ -27,7 +27,7 @@ public class MessageController {
     }
 
     @DeleteMapping("/{message_id}")
-    @Secured("ROLE_ADMIN")
+    @Secured({"ROLE_ADMIN","ROLE_MODERATOR"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMessage(@PathVariable long message_id){
         messageService.deleteMessage(message_id);
