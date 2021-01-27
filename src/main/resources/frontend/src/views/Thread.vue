@@ -106,10 +106,8 @@ export default {
     },
   },
   async created() {
-    await this.$store.dispatch("fetchThread", {
-      forumId: this.$route.params.forum_id,
-      threadId: this.$route.params.thread_id,
-    });
+    await this.$store.dispatch("fetchThread", this.$route.params.thread_id
+    );
   },
 };
 </script>

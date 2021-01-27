@@ -49,9 +49,9 @@ export default new Vuex.Store({
       const forum = await rawForum.json();
       commit("setForum", forum);
     },
-    async fetchThread({ commit }, obj) {
+    async fetchThread({ commit }, thread_id) {
       const rawThread = await fetch(
-        `/api/v1/forums/${obj.forumId}/threads/${obj.threadId}`
+        `/api/v1/forums/threads/${thread_id}`
       );
       const thread = await rawThread.json();
       commit("setThread", thread);

@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.Dtos.UserDto;
 import com.example.demo.entities.User;
 import com.example.demo.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Operation(summary = "Requires roles : ADMIN")
     @GetMapping
     @Secured("ROLE_ADMIN")
     public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String username) {
@@ -27,6 +29,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @Operation(summary = "Requires roles : ALL")
     @PostMapping
     public ResponseEntity<User> registerUser(@Validated @RequestBody UserDto user) {
         var newUser = userService.registerUser(user);
@@ -34,6 +37,7 @@ public class UserController {
         return ResponseEntity.created(uri).body(newUser);
     }
 
+    @Operation(summary = "Requires roles : ADMIN")
     @PutMapping("/{user_id}")
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -41,6 +45,7 @@ public class UserController {
 
     }
 
+    @Operation(summary = "Requires roles : ADMIN")
     @DeleteMapping("/{user_id}")
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)

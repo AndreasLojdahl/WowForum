@@ -34,11 +34,11 @@ public class ForumService {
     }
 
 
-    public void deleteForum(long id){
-        if(!forumRepo.existsById(id)){
-            throw  new ResponseStatusException(HttpStatus.NOT_FOUND,"the forum with this id doesn't exist");
-        }
-    }
+//    public void deleteForum(long id){
+//        if(!forumRepo.existsById(id)){
+//            throw  new ResponseStatusException(HttpStatus.NOT_FOUND,"the forum with this id doesn't exist");
+//        }
+//    }
 
     public void promoteModerator(long forum_id, long user_id){
 
