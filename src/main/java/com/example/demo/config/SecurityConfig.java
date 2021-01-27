@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 
@@ -40,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/auth/login").permitAll()
-                .loginPage("/login").successHandler(succesHandler())
+                .loginPage("/login").successHandler(customSuccesHandler()).failureHandler(customFailureHandler())
                 .and().logout().permitAll()
                 .and()
                 .exceptionHandling()
@@ -50,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
     }
 
-    private AuthenticationSuccessHandler succesHandler() {
+    private AuthenticationSuccessHandler customSuccesHandler() {
         return new AuthenticationSuccessHandler() {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
@@ -58,6 +60,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 httpServletResponse.setStatus(200);
             }
 
+        };
+    }
+    private AuthenticationFailureHandler customFailureHandler() {
+        return new AuthenticationFailureHandler() {
+
+            @Override
+            public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+                httpServletResponse.getWriter().append("Logged in failed");
+                httpServletResponse.setStatus(401);
+            }
         };
     }
 
