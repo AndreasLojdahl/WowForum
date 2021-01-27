@@ -59,7 +59,6 @@ export default {
   },
   destroyed() {
     this.$store.commit("setUsers", null);
-    console.log("DESTROY", this.$store.state.searchedUsername);
   },
 };
 </script>

@@ -72,8 +72,12 @@ export default {
       return this.$store.state.loggedInUser;
     },
     isAdmin() {
-      return this.user ? this.user.roles.includes("ADMIN") : false;
+      return this.user?.roles.includes("ADMIN");
+      // return this.user ? this.user.roles.includes("ADMIN") : false;
     },
+    isModerator() {
+      return this.user?.forumsToModerate.includes(this.forum_id);
+    }
   },
   methods: {
     async deleteMessage() {
