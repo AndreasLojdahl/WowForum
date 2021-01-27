@@ -48,10 +48,29 @@ public class MessageService {
         return messageRepo.save(newMessage);
     }
 
-    public void deleteMessage(long thread_id){
-        if(!messageRepo.existsById(thread_id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"the message with that id doesn't exist");
+    public void deleteMessage(long message_id){
+
+//        if(!messageRepo.existsById(message_id)){
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"the message with that id doesn't exist");
+//        }
+
+        var message = messageRepo.findById(message_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Couldn't find the message"));
+
+        var username = myUserDetailsService.getCurrentUser();
+        var user = userRepo.findByUsername(username);
+        if(user == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
         }
-        messageRepo.deleteById(thread_id);
+
+        var thread = threadRepo.findById(message.getThread_id()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't find the thread"));
+
+        if(user.getRoles().contains("ADMIN") || user.getForumsToModerate().contains(thread.getForum_id())){
+            System.out.println("Inne i delete message");
+            messageRepo.deleteById(message.getMessage_id());
+        }else {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"You're not authorized to delete this message");
+        }
+
+
     }
 }
