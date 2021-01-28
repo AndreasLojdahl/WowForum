@@ -24,7 +24,7 @@
         </div>
         <div class="col" v-if="!message.messageOwner">removed user </div>
       </div>
-      <div class="col text-right">{{ getDate }} aaa {{this.$route.params.forum_id }} aaa</div>
+      <div class="col text-right">{{ getDate }}</div>
     </div>
     <div class="card-body">
       <p

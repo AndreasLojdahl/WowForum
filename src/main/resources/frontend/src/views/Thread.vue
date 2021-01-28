@@ -102,6 +102,7 @@ export default {
           body: JSON.stringify(messageToCreate),
         }
       );
+      // check if status is 200?
       newMessage = await newMessage.json();
       this.$store.commit("addNewMessage", newMessage);
       this.message.messageContent = null;

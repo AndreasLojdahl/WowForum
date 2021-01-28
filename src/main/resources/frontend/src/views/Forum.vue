@@ -88,6 +88,7 @@ export default {
           body: JSON.stringify(threadToCreate),
         }
       );
+      // check if status is 200?
       newThread = await newThread.json();
       this.$store.commit("addNewThread", newThread);
       this.thread.title = null;
