@@ -22,9 +22,9 @@
         >
           {{ message.messageOwner.username }}
         </div>
-        <div class="col" v-if="!message.messageOwner">removed user</div>
+        <div class="col" v-if="!message.messageOwner">removed user </div>
       </div>
-      <div class="col text-right">{{ getDate }}</div>
+      <div class="col text-right">{{ getDate }} aaa {{this.$route.params.forum_id }} aaa</div>
     </div>
     <div class="card-body">
       <p
@@ -36,7 +36,7 @@
     </div>
     <div
       class="card-footer text-muted d-flex justify-content-start"
-      v-if="isAdmin"
+      v-if="isAdmin || isModerator"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -73,10 +73,9 @@ export default {
     },
     isAdmin() {
       return this.user?.roles.includes("ADMIN");
-      // return this.user ? this.user.roles.includes("ADMIN") : false;
     },
     isModerator() {
-      return this.user?.forumsToModerate.includes(this.forum_id);
+      return this.user?.forumsToModerate.includes(Number(this.$route.params.forum_id));
     }
   },
   methods: {

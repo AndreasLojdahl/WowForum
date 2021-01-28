@@ -34,7 +34,7 @@
           v-model="message.messageContent"
         />
       </div>
-      <div v-if="isAdmin" class="form-check mb-3">
+      <div v-if="isAdmin || isModerator" class="form-check mb-3">
         <input
           type="checkbox"
           class="form-check-input"
@@ -71,6 +71,9 @@ export default {
     },
     isAdmin() {
       return this.user ? this.user.roles.includes("ADMIN") : false;
+    },
+    isModerator(){
+      return this.user?.forumsToModerate.includes(this.thread.forum_id);
     },
     isUserAndThreadIsOpen() {
       return this.user && this.thread.locked === false;
