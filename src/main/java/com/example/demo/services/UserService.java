@@ -39,7 +39,10 @@ public class UserService {
 
     public User registerUser(UserDto user) {
         if (userRepo.existsByUsername(user.getUsername())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Detta användarnamn är redan registrerad");
+        }
+        if(userRepo.existsByEmail(user.getEmail())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Denna email är redan registrerad");
         }
 
         var newUser = myUserDetailsService.addUser(user.getUsername(), user.getEmail(), user.getPassword(), user.getRoles());
