@@ -37,13 +37,13 @@ public class UserController {
         return ResponseEntity.created(uri).body(newUser);
     }
 
-    @Operation(summary = "Requires roles : ADMIN")
-    @PutMapping("/{user_id}")
-    @Secured("ROLE_ADMIN")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void User(@RequestBody User user){
-
-    }
+//    @Operation(summary = "Requires roles : ADMIN")
+//    @PutMapping("/{user_id}")
+//    @Secured("ROLE_ADMIN")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void User(@RequestBody User user){
+//
+//    }
 
     @Operation(summary = "Requires roles : ADMIN")
     @DeleteMapping("/{user_id}")
